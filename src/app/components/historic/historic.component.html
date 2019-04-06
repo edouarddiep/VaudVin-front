@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Historique
+    </ion-title>
+    <ion-img src="/assets/icon/gws_logo_blanc.png" class="img-toolbar" slot="end"></ion-img>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar (ionChange)="onChange($event)" placeHolder="Rechercher un vin"></ion-searchbar>
+</ion-content>

@@ -1,0 +1,53 @@
+.rating{
+    margin:20px;
+  .heart{
+    width:30px;
+    height:30px;
+    color:#df4b68 !important;
+  }
+}
+
+  .wine-card{
+    text-align: center;
+    align-content: center;
+    height:100%;
+    min-width:100px;
+    display: block;
+    flex-direction: column;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-top:20px;
+    box-shadow: inset 0px 11px 10px -15px black, outset 0px -11px 10px -15px black;
+    cursor: pointer;
+    .img-vin{
+        width:100px;
+        height: 250px;
+        min-width: 50px;
+        min-height: 190px;
+        padding-bottom: 10px;
+        display:block;
+        margin:auto;
+        position: relative;
+    }
+    .vin-info{
+        margin-left:20px;
+        padding-bottom:50px;
+        .vin-title{
+            font-weight: bold;
+            font-size: calc(20px + .5vw);
+            text-align: center;
+        }
+        .item-info{
+          padding:0px !important;
+        }
+    }
+    .btn-rating{
+      padding-bottom:20px;
+    }
+    .comment-item{
+      margin-bottom:20px;
+      .comment-ta{
+        border: 1px solid black;
+      }
+    }
+}

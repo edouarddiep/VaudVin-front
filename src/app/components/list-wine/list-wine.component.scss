@@ -1,0 +1,34 @@
+.img-toolbar{
+    width:100px;
+    height:50px;
+}
+.wine-card{
+    text-align: center;
+    align-content: center;
+    height:100%;
+    min-width:100px;
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-top:20px;
+    box-shadow: inset 0px 11px 10px -15px black, outset 0px -11px 10px -15px black;
+    cursor: pointer;
+    .img-vin{
+        width:50px;
+        height: 190px;
+        min-width: 50px;
+        min-height: 190px;
+        padding-bottom: 50px;
+    }
+    .vin-info{
+        margin-left:20px;
+        padding-bottom:50px;
+        .vin-title{
+            font-weight: bold;
+            font-size: calc(15px + .5vw);
+            color: #df4b68;
+        }
+    }
+}
+
