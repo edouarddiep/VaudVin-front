@@ -6,9 +6,69 @@
     <ion-title>
       Historique
     </ion-title>
-    <ion-img src="/assets/icon/gws_logo_blanc.png" class="img-toolbar" slot="end"></ion-img>
+    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-searchbar (ionChange)="onChange($event)" placeHolder="Rechercher un vin"></ion-searchbar>
+  <ion-list>
+    <ion-card *ngFor="let vin of vins" class="wine-card">
+      <ion-item class="vin-wrapper">
+        <ion-img class="img-vin" src="{{vin.photo}}"></ion-img>
+        <div class="vin-info">
+          <ion-label class="vin-title">{{vin.nom}}</ion-label>
+          <ion-label>{{vin.provenance}}</ion-label>
+          <ion-label>{{vin.producteur}}</ion-label>
+          <ion-label>{{vin.cepage}}</ion-label>
+          <ion-label>{{vin.millesime}}</ion-label>
+          <ion-label>
+            <div id="like" class="rating" [ngSwitch]=vin.rate>
+              <p *ngSwitchDefault title="pas de note">
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+              </p>
+              <p *ngSwitchCase="1" title="note médiocre">
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+              </p>
+              <p *ngSwitchCase="2" title="note faible">
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+              </p>
+              <p *ngSwitchCase="3" title="note moyenne">
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+              </p>
+              <p *ngSwitchCase="4" title="note bonne">
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart-empty" class="heart"></ion-icon>
+              </p>
+              <p *ngSwitchCase="5" title="note excellente">
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+                <ion-icon name="heart" class="heart"></ion-icon>
+              </p>
+            </div>
+          </ion-label>
+        </div>
+      </ion-item>  
+    </ion-card>
+  </ion-list>
 </ion-content>

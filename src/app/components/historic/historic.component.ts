@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { VinService } from 'src/app/services/vin.service';
+import { Router } from '@angular/router';
+import { Vin } from 'src/app/model/Vin.model';
 
 @Component({
   selector: 'app-historic',
@@ -7,8 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoricComponent implements OnInit {
 
-  constructor() { }
+  vins = new Array<Vin>();
 
-  ngOnInit() {}
+  searched : string;
+
+  constructor(private vs : VinService, private router : Router) { }
+
+  ngOnInit() {
+    this.vs.getVins().subscribe(vins => this.vins = vins);
+  }
+
+  onChange(event){
+    this.searched = event.detail.value;
+    this.vs.getVinsFilteredByName(event.detail.value).subscribe(vins => this.vins = vins);
+    this.vs.pushNextVinArray();
+  }
 
 }

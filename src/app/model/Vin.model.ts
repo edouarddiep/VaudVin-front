@@ -12,4 +12,5 @@ export class Vin {
     taux_de_sucre: string;
     medaille: string;
     photo: string;
+    rate : number;
 }

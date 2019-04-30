@@ -6,14 +6,14 @@
       <ion-title>
         Noter / Evaluer un vin
       </ion-title>
-      <ion-img src="/assets/icon/gws_logo_blanc.png" class="img-toolbar" slot="end"></ion-img>
+      <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
     </ion-toolbar>
   </ion-header>
   <ion-content>
   <ion-searchbar (ionChange)="onChange($event)" placeHolder="Rechercher un vin"></ion-searchbar>
   <ion-list>
     <ion-card *ngFor="let vin of vins" class="wine-card" (click)="goToDetails(vin)">
-      <ion-item>
+      <ion-item class="vin-wrapper">
         <ion-img class="img-vin" src="{{vin.photo}}"></ion-img>
         <div class="vin-info">
           <ion-label class="vin-title">{{vin.nom}}</ion-label>

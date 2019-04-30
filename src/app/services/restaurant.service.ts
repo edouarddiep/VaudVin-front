@@ -32,16 +32,20 @@ export class RestaurantService {
     {id: 10, nom: 'Restaurant Demi Lune', type: 'Café Restaurant', adresse : 'Rue Etienne-Dumont 3', code_postal : 1204, ville: 'Genève', no_telephone: '+41 22 312 12 90', carte_des_vins: null},
   ];
 
-  constructor(private vinService : VinService) { }
+  constructor(private vinService: VinService) { }
 
-  getRestaurants() : Observable<Array<Restaurant>>{
+  getRestaurants(): Observable<Array<Restaurant>> {
     return of(this.listeRestaurants);
   }
 
-  getRestaurantsByName(name : string) : Observable<Array<Restaurant>>{
+  getRestaurantsByName(content: string): Observable<Array<Restaurant>> {
     this.restaurantsFiltres = new Array<Restaurant>();
     this.listeRestaurants.forEach(r => {
-      if(r.nom.toLocaleLowerCase().includes(name.toLocaleLowerCase())){
+      const nom = r.nom.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const type = r.type.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const contentNormalized = content.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      if(nom.toLocaleUpperCase().includes(contentNormalized.toLocaleUpperCase())
+      || type.toLocaleUpperCase().includes(contentNormalized.toLocaleUpperCase())) {
         this.restaurantsFiltres.push(r);
       }
     });
@@ -52,15 +56,15 @@ export class RestaurantService {
     this.restaurants$.next(restaurants);
   }
 
-  setRestaurant(r : Restaurant){
+  setRestaurant(r: Restaurant) {
     this.restaurant = r;
   }
 
-  getRestaurant() : Observable<Restaurant>{
+  getRestaurant(): Observable<Restaurant> {
     return of(this.restaurant);
   }
 
-  pushNextRestaurant(){
+  pushNextRestaurant() {
     this.restaurant$.next(this.restaurant);
   }
 }

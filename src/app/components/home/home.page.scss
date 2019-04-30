@@ -1,32 +1,16 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
-  background-color: #353a5b;
-}
-
 .img-toolbar{
   width:100px;
   height:50px;
 }
 
-.login-card{
-  text-align: center;
-
-  .div-label{
-    margin-top:25px;
-    margin-bottom:5px;
-  }
-
-  .login-label{
-    font-size:1.5em;
-  }
-  .login-input{
-    width:80%;
-  }
-  .login-btn{
-    text-transform: none;
-    margin-top:20px;
-    margin-bottom: 20px;
-    height:30px;
+.home-card{
+  padding:50px;
+  background-color: #df4b68;
+  .home-label{
+      color:white;
+      text-align: justify;
+      text-justify: distribute;
+      text-align-last: left;
+      font-size:1.6em;    
   }
 }

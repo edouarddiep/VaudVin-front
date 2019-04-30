@@ -6,29 +6,11 @@
     <ion-title>
       Accueil
     </ion-title>
-    <ion-img src="/assets/icon/gws_logo_blanc.png" class="img-toolbar" slot="end"></ion-img>
+    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card class="welcome-card" color="primary">
-    <ion-card-header>
-      <ion-card-subtitle>Commencons efficacement</ion-card-subtitle>
-      <ion-card-title>Bienvenue sur VaudVin</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Cette application a pour but de présenter une plateforme de notation et d'évaluation des vins vaudois.</p>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="login-card">
-    <div class="div-label">
-      <ion-label class="login-label" color="primary">Bienvenue sur VaudVin !</ion-label>
-    </div>
-    <ion-item>
-      <ion-input placeholder="Nom d'utilisateur" class="login-input"[(ngModel)]="username"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="Mot de passe" class="login-input" [(ngModel)]="password" (keydown)="login(username, password, $event)"></ion-input>
-    </ion-item>
-    <ion-button class="login-btn" (click)="login(username, password, $event)">Login</ion-button>
+  <ion-card class="home-card">
+    <ion-label class="home-label" color="primary">Merci d'avoir choisi VaudVin ! <br/><br/>Grâce à cette application, tous vos vins préférés sont accessibles en seulement quelques clics ! ;)</ion-label>
   </ion-card>
 </ion-content>

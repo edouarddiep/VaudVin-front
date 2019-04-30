@@ -1,0 +1,31 @@
+.login-content{
+    .login-card{
+        padding-top:50px;
+        text-align: center;
+        .img-toolbar{
+            text-align: center;
+            margin:auto;
+            width:250px;
+            height:125px;
+        }
+        .div-label{
+            margin-top:30px;
+            margin-bottom:25px;
+        }
+
+        .login-label{
+            font-size:1.6em;    
+        }
+        .login-input{
+            padding-right:20px;
+        }
+        .login-btn{
+            text-transform: none;
+            margin-top:20px;
+            margin-bottom: 20px;
+            height:30px;
+        }
+    }
+}
+
+  

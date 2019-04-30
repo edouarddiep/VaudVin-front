@@ -51,11 +51,11 @@
     </div>
     <div class="btn-rating">
       <ion-button color="medium" size="small" (click)="navigatePage()">Annuler</ion-button>
-      <ion-button color="primary" size="small" (click)="robin($event)">Envoyer la note</ion-button>
+      <ion-button color="primary" size="small" (click)="rate()">Envoyer la note</ion-button>
     </div>
     <ion-item class="comment-item" lines="none">
       <ion-textarea class="comment-ta" placeholder="Laissez un commentaire (100 caractères max.)" maxlength="100"></ion-textarea>
-      <ion-button color="primary" size="small">Commenter</ion-button>
+      <ion-button color="primary" size="small" (click)="rate()">Commenter</ion-button>
     </ion-item>
   </div>      
 </ion-content>

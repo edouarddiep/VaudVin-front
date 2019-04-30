@@ -63,7 +63,7 @@ export class RatingComponent implements OnInit {
     
   }
 
-  robin(event){
-    alert(event.value);
+  rate(){
+    alert("Merci d'avoir évalué ce vin !");
   }
 }
