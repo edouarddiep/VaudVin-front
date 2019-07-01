@@ -1,0 +1,20 @@
+.img-vin{
+    width:50px;
+    height: 190px;
+    min-width: 50px;
+    min-height: 190px;
+    padding-bottom: 50px;
+}
+.vin-wrapper{
+    margin-right:20px;
+    .vin-info{
+        margin-left:20px;
+        padding-bottom:50px;
+        font-size: calc(11px + .5vw);
+        .vin-title{
+            font-weight: bold;
+            font-size: calc(13px + .5vw);
+            color: #df4b68;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Trouver un restaurant
+    </ion-title>
+    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let restaurant of restaurants" class="restau-card" (click)="getDetails(restaurant)">
+      <ion-item>
+        <div class="div-icon">
+          <ion-icon name="restaurant" class="img-icon"></ion-icon>
+        </div>
+        <div class="restau-info">
+          <ion-label class="restau-title">{{restaurant.name}}</ion-label>
+          <ion-label>{{restaurant.type}}</ion-label>
+          <ion-label>{{restaurant.address_1}}</ion-label>
+          <ion-label>{{restaurant.zip_code}} - {{restaurant.city}}</ion-label>
+          <ion-label>{{restaurant.phone_number}}</ion-label>
+        </div>
+      </ion-item>  
+    </ion-card>
+  </ion-list>
+  <agm-map
+   [style.height.px]="height"
+   [latitude]="lat"
+   [longitude]="lng">
+     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+</ion-content>

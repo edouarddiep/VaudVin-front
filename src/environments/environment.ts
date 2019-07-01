@@ -14,3 +14,18 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const URL = {
+  serv: '127.0.0.1:8000',
+  domaine: 'http://127.0.0.1:8000',
+  token: '/api/token/',
+  wine: {
+    verb: '/wines/',
+    filter_name: '?name__icontains=',
+  },
+  restaurant: {
+    verb: '/restaurants/',
+    filter_name: '?name__icontains=',
+    filter_npa: '?code_postal=',
+  },
+}

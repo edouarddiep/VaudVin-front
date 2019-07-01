@@ -1,0 +1,11 @@
+<ion-item lines="none" class="vin-wrapper" (click)="goToDetails(vin)">
+  <ion-img class="img-vin" src="data:image/jpeg;base64,{{vin.photo}}"></ion-img>
+  <div class="vin-info">
+    <ion-label class="vin-title">{{vin.name}}</ion-label>
+    <ion-label>{{vin.region}}</ion-label>
+    <ion-label>{{vin.producer}}</ion-label>
+    <ion-label>{{vin.grape_variety}}</ion-label>
+    <ion-label>Vin {{vin.category}}</ion-label>
+    <ion-label>{{vin.vintage}}</ion-label>
+  </div>
+</ion-item>

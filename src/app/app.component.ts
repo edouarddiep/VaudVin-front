@@ -22,13 +22,18 @@ export class AppComponent {
     },
     {
       title: 'Trouver un restaurant',
-      url: '/list',
+      url: '/find-restaurant',
       icon: 'restaurant'
     },
     {
       title: 'Consulter son historique',
-      url: '/historic',
+      url: '/historical',
       icon: 'list'
+    },
+    {
+      title: 'Tester la carte',
+      url: '/test-map',
+      icon: 'map'
     },
   ];
 

@@ -1,0 +1,45 @@
+.img-toolbar{
+    width:100px;
+    height:50px;
+}
+.restau-card{
+    cursor: pointer;
+}
+
+.div-icon{
+    margin-right:10px;
+    height: 20px;
+    width: 40px;
+
+    .img-icon{
+        height:40px;
+        width:40px;
+    }
+}
+
+.restau-info{
+    padding-top:20px;
+    padding-bottom:20px;
+    .restau-title{
+        font-weight: bold;
+        font-size:1.1em;
+        color: #df4b68;
+    }
+}
+
+agm-map {
+    height: 100% !important;
+    width: 100%;
+  }
+  
+  .gm-style {
+    text-align: center;
+  }
+  
+  agm-info-window {
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+    max-width: 80px;
+    max-height: 80px;
+  }

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Noter / Evaluer un vin
+    </ion-title>
+    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <app-searchbar></app-searchbar>
+    <ion-card id="card1">
+      <ion-card-header id="1" (click)="toggleAccordion($event)" class="card-header">
+        <ion-label>Vins blancs</ion-label>
+        <ion-icon class="card-icon" id="icon1" name="md-add"></ion-icon>
+      </ion-card-header>
+      <ion-card-content id="content1" class="wine-card">
+        <div *ngFor="let vin of vins">
+          <app-wine-card [vin]="vin"></app-wine-card>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card id="card2">
+      <ion-card-header id="2" (click)="toggleAccordion($event)" class="card-header">
+        <ion-label>Vins rosés</ion-label>
+        <ion-icon class="card-icon" id="icon2" name="md-add"></ion-icon>
+      </ion-card-header>
+      <ion-card-content id="content2" class="wine-card">
+        <div *ngFor="let vin of vins">
+          <app-wine-card [vin]="vin"></app-wine-card>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card id="card3">
+      <ion-card-header id="3" (click)="toggleAccordion($event)" class="card-header">
+        <ion-label class="card-header">Vins rouges</ion-label>
+        <ion-icon class="card-icon" id="icon3" name="md-add"></ion-icon>
+      </ion-card-header>
+      <ion-card-content id="content3" class="wine-card">
+        <div *ngFor="let vin of vins">
+          <app-wine-card [vin]="vin"></app-wine-card>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card id="card4">
+      <ion-card-header id="4" (click)="toggleAccordion($event)" class="card-header">
+        <ion-label>Mousseux & spécialités</ion-label>
+        <ion-icon class="card-icon" id="icon4" name="md-add"></ion-icon>
+      </ion-card-header>
+      <ion-card-content id="content4" class="wine-card">
+        <div *ngFor="let vin of vins">
+          <app-wine-card [vin]="vin"></app-wine-card>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
