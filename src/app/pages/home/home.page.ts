@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
+  name: string;
+
   constructor(private router: Router) { }
-  
+
   ngOnInit() {
+    this.name = localStorage.getItem('currentUserName');
   }
 
 }

@@ -9,60 +9,76 @@ import { Router } from '@angular/router';
   styleUrls: ['./wine-detail.page.scss'],
 })
 export class WineDetailPage implements OnInit {
-  vin : Vin;
+  vin: Vin;
+  base64 = 'data:image/png;base64,';
+  vinPhoto: string;
+  isBio: string;
+  isWoody: string;
 
-  constructor(private vs : VinService, private router : Router) { }
+  constructor(private vs: VinService, private router: Router) { }
 
   ngOnInit() {
-    this.vs.getVinDetail().subscribe(vin => this.vin = vin);
-    //console.log(this.vin.nom);
+    this.vs.getVinDetail().subscribe(vin => {
+      this.vin = vin;
+      this.vinPhoto = this.base64 + this.vin.photo;
+      if(this.vin.is_bio){
+        this.isBio = 'oui';
+      } else {
+        this.isBio = 'non';
+      }
+      if(this.vin.is_woody_character){
+        this.isWoody = 'oui';
+      } else {
+        this.isWoody = 'non';
+      }
+    });
   }
 
-  changeIcon(event){
-    console.log("L'ID = "+event.target.id);
-    switch(event.target.id){
-      case "heart1":{
+  changeIcon(event) {
+    console.log("L'ID = " + event.target.id);
+    switch (event.target.id) {
+      case "heart1": {
         this.fillHeart(1);
         break;
       }
-      case "heart2":{
+      case "heart2": {
         this.fillHeart(2);
         break;
       }
-      case "heart3":{
+      case "heart3": {
         this.fillHeart(3);
         break;
       }
-      case "heart4":{
+      case "heart4": {
         this.fillHeart(4);
         break;
       }
-      case "heart5":{
+      case "heart5": {
         this.fillHeart(5);
         break;
       }
     }
   }
 
-  fillHeart(id : number){
-    for(let i=1;i<=id;i++){
+  fillHeart(id: number) {
+    for (let i = 1; i <= id; i++) {
       console.log("CA FILL");
-      let currentHeart = document.getElementById('heart'+i);
+      let currentHeart = document.getElementById('heart' + i);
       currentHeart.setAttribute('name', 'heart');
     }
-    for(let k=5;k>id;k--){
+    for (let k = 5; k > id; k--) {
       console.log("CA DEFILL");
-      let currentHeart = document.getElementById('heart'+k);
+      let currentHeart = document.getElementById('heart' + k);
       currentHeart.setAttribute('name', 'heart-empty');
     }
   }
 
-  navigatePage(){
-    this.router.navigate(['rate-wine']);
-    
+  navigatePage() {
+    this.router.navigateByUrl('/list-wine');
+
   }
 
-  rate(){
+  rate() {
     alert("Merci d'avoir évalué ce vin !");
   }
 

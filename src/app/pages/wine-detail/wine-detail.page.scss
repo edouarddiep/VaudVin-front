@@ -32,13 +32,17 @@
     .vin-info{
         margin-left:20px;
         padding-bottom:50px;
+        word-wrap: break-word;
+        word-break: break-all;
         .vin-title{
+            color: #df4b68;
             font-weight: bold;
-            font-size: calc(20px + .5vw);
+            font-size: calc(17px + .5vw);
             text-align: center;
         }
         .item-info{
-          padding:0px !important;
+          word-wrap: break-word;
+          padding-top:15px;
           margin-right:35px;
         }
     }

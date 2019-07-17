@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPage } from './login.page';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ChooseVintagePage } from './choose-vintage.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: ChooseVintagePage
   }
 ];
 
@@ -22,7 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [AuthenticationService],
-  declarations: [LoginPage]
+  declarations: [ChooseVintagePage]
 })
-export class LoginPageModule {}
+export class ChooseVintagePageModule {}

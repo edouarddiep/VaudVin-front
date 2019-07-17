@@ -1,6 +1,7 @@
 export class Vin {
     id: number;
     region: string;
+    name: string;
     producer: string;
     appellation: string;
     grape_variety: string;

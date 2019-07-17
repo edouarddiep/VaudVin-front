@@ -12,49 +12,55 @@
 <ion-content>
   <ion-list>
     <app-searchbar></app-searchbar>
-    <ion-card id="card1">
+    <div *ngIf="isLoading && cpt===0" class="loading-spinner">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+    <ion-card *ngIf="whiteWines?.length > 0">
       <ion-card-header id="1" (click)="toggleAccordion($event)" class="card-header">
         <ion-label>Vins blancs</ion-label>
         <ion-icon class="card-icon" id="icon1" name="md-add"></ion-icon>
       </ion-card-header>
       <ion-card-content id="content1" class="wine-card">
-        <div *ngFor="let vin of vins">
+        <div *ngFor="let vin of whiteWines">
           <app-wine-card [vin]="vin"></app-wine-card>
         </div>
       </ion-card-content>
     </ion-card>
-    <ion-card id="card2">
+    <ion-card *ngIf="roseWines?.length > 0">
       <ion-card-header id="2" (click)="toggleAccordion($event)" class="card-header">
         <ion-label>Vins rosés</ion-label>
         <ion-icon class="card-icon" id="icon2" name="md-add"></ion-icon>
       </ion-card-header>
       <ion-card-content id="content2" class="wine-card">
-        <div *ngFor="let vin of vins">
+        <div *ngFor="let vin of roseWines">
           <app-wine-card [vin]="vin"></app-wine-card>
         </div>
       </ion-card-content>
     </ion-card>
-    <ion-card id="card3">
+    <ion-card *ngIf="redWines?.length > 0">
       <ion-card-header id="3" (click)="toggleAccordion($event)" class="card-header">
         <ion-label class="card-header">Vins rouges</ion-label>
         <ion-icon class="card-icon" id="icon3" name="md-add"></ion-icon>
       </ion-card-header>
       <ion-card-content id="content3" class="wine-card">
-        <div *ngFor="let vin of vins">
+        <div *ngFor="let vin of redWines">
           <app-wine-card [vin]="vin"></app-wine-card>
         </div>
       </ion-card-content>
     </ion-card>
-    <ion-card id="card4">
+    <ion-card *ngIf="mousseuxWines?.length > 0">
       <ion-card-header id="4" (click)="toggleAccordion($event)" class="card-header">
         <ion-label>Mousseux & spécialités</ion-label>
         <ion-icon class="card-icon" id="icon4" name="md-add"></ion-icon>
       </ion-card-header>
       <ion-card-content id="content4" class="wine-card">
-        <div *ngFor="let vin of vins">
+        <div *ngFor="let vin of mousseuxWines">
           <app-wine-card [vin]="vin"></app-wine-card>
         </div>
       </ion-card-content>
     </ion-card>
+    <div *ngIf="wines.length === 0" [hidden]="isLoading">
+      <h3 style="text-align: center; margin-top:30px">Aucun vin ne correspond à cette recherche.</h3>
+    </div>
   </ion-list>
 </ion-content>

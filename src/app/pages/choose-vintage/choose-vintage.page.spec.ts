@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListMillesimePage } from './list-millesime.page';
+import { ChooseVintagePage } from './choose-vintage.page';
 
-describe('ListMillesimePage', () => {
-  let component: ListMillesimePage;
-  let fixture: ComponentFixture<ListMillesimePage>;
+describe('ChooseVintagePage', () => {
+  let component: ChooseVintagePage;
+  let fixture: ComponentFixture<ChooseVintagePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListMillesimePage ],
+      declarations: [ ChooseVintagePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListMillesimePage);
+    fixture = TestBed.createComponent(ChooseVintagePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

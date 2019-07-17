@@ -19,6 +19,12 @@ export const URL = {
   serv: '127.0.0.1:8000',
   domaine: 'http://127.0.0.1:8000',
   token: '/api/token/',
+  auth: {
+    verb: '/api/',
+    login: 'login',
+    register: 'register',
+    profile: 'profile',
+  },
   wine: {
     verb: '/wines/',
     filter_name: '?name__icontains=',

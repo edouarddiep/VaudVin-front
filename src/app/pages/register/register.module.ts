@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListMillesimePage } from './list-millesime.page';
+import { RegisterPage } from './register.page';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListMillesimePage
+    component: RegisterPage
   }
 ];
 
@@ -19,8 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ListMillesimePage]
+  providers: [AuthenticationService],
+  declarations: [RegisterPage]
 })
-export class ListMillesimePageModule {}
+export class RegisterPageModule {}

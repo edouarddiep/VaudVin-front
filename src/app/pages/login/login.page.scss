@@ -17,14 +17,20 @@
         .login-label{
             font-size:1.6em;    
         }
-        .login-input{
+        .form-group{
             padding-right:20px;
         }
-        .login-btn{
+        .form-btn{
             text-transform: none;
             margin-top:20px;
             margin-bottom: 20px;
             height:30px;
+        }
+        .register-link{
+            color:#0000EE;
+            :visited{
+                color: #551A8B;
+            }
         }
     }
 }

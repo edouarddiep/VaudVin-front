@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Vin } from 'src/app/models/Vin.model';
+import { VinService } from 'src/app/services/vin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wine-card',
@@ -9,8 +11,12 @@ import { Vin } from 'src/app/models/Vin.model';
 export class WineCardComponent implements OnInit {
 
   @Input() vin: Vin;
-  constructor() { }
+  constructor(private vs: VinService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
+  goToDetails() {
+    this.vs.pushNextVin(this.vin);
+    this.router.navigateByUrl('/choose-vintage');
+  }
 }

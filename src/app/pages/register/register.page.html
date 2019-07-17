@@ -1,0 +1,53 @@
+<ion-content class="register-content" responsive-sm>
+  <ion-card class="register-card" responsive-sm>
+    <form [formGroup]="registerForm" (ngSubmit)="register()" *ngIf="isReady">
+      <ion-grid>
+        <ion-row color="primary" justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div text-center>
+              <h3>Créer votre compte</h3>
+            </div>
+            <div padding>
+              <ion-item class="form-group" responsive-sm>
+                  <ion-input type="email" placeholder="Saisir un e-mail" [(ngModel)]="credentials.email" formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && registerForm.get('email')?.errors }"></ion-input>
+                  <div *ngIf="submitted && registerForm.get('email')?.errors" class="invalid-feedback">
+                    <div *ngIf="registerForm.get('email')?.hasError('required')">Un email est requis</div>
+                    <div *ngIf="registerForm.get('email')?.hasError('pattern')">L'email n'est pas valide</div>
+                  </div>
+                </ion-item>
+                <ion-item class="form-group" responsive-sm>
+                    <ion-input type="text" placeholder="Saisir un nom d'utilisateur" [(ngModel)]="credentials.name" formControlName="name"
+                    [ngClass]="{'is-invalid' : submitted && registerForm.get('name')?.errors}"></ion-input>
+                    <div *ngIf="submitted && registerForm.get('name')?.errors" class="invalid-feedback">
+                      <div *ngIf="registerForm.get('name')?.hasError('required')">Un nom d'utilisateur est requis</div>
+                      <div *ngIf="registerForm.get('name')?.hasError('pattern')">Le nom d'utilisateur doit comporter 3 lettres min.</div>
+                    </div>
+                  </ion-item>
+                <ion-item class="form-group" responsive-sm>
+                  <ion-input type="password" placeholder="Saisir un mot de passe" [(ngModel)]="credentials.password" formControlName="password"
+                  [ngClass]="{'is-invalid' : submitted && registerForm.get('password')?.errors}"></ion-input>
+                  <div *ngIf="submitted && registerForm.get('password')?.errors" class="invalid-feedback">
+                    <div *ngIf="registerForm.get('password')?.hasError('required')">Un mot de passe est requis</div>
+                    <div *ngIf="registerForm.get('password')?.hasError('minlength')">Le mot de passe doit contenir 6 caractères min.</div>
+                  </div>
+                </ion-item>
+                <ion-item class="form-group" responsive-sm>
+                  <ion-input type="password" placeholder="Confirmer le mot de passe" [(ngModel)]="confirm_password" formControlName="password_confirm"
+                  [ngClass]="{ 'is-invalid' : submitted && registerForm.get('password_confirm')?.errors}"></ion-input>
+                  <div *ngIf="submitted && registerForm.get('password_confirm')?.errors" class="invalid-feedback">
+                      <div *ngIf="registerForm.get('password_confirm')?.hasError('required')">Veuillez confirmer le mot de passe</div>
+                      <div *ngIf="registerForm.get('password_confirm')?.hasError('mustMatch')">Les mots de passe ne correspondent pas !</div>
+                    </div>
+                </ion-item>
+            </div>
+            <div padding>
+              <ion-button class="login-btn" size="medium" type="submit" expand="block">Enregistrer</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+    </form>
+  </ion-card>
+</ion-content>

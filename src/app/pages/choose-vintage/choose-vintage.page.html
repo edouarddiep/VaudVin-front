@@ -1,0 +1,10 @@
+<ion-content>
+  <h3 text-center>Sélectionnez un millésime</h3>
+  <div *ngFor="let millesime of millesimes" (click)="goToDetail()">
+    <ion-card>
+      <ion-item lines="none">
+        <h2 text-center>{{millesime}}</h2>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

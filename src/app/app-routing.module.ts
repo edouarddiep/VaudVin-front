@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: './pages/login/login.module#LoginPageModule'
   },
   {
+    path: 'register',
+    loadChildren: './pages/register/register.module#RegisterPageModule'
+  },
+  {
     path: 'list-wine',
     loadChildren: './pages/list-wine/list-wine.module#ListWinePageModule'
   },
@@ -32,13 +36,15 @@ const routes: Routes = [
     loadChildren: './pages/find-restaurant/find-restaurant.module#FindRestaurantPageModule'
   },
   { 
-    path: 'list-millesime',
-    loadChildren: './pages/list-millesime/list-millesime.module#ListMillesimePageModule'
+    path: 'choose-vintage',
+    loadChildren: './pages/choose-vintage/choose-vintage.module#ChooseVintagePageModule'
   },
   { 
     path: 'test-map',
-    loadChildren: './pages/test-map/test-map.module#TestMapPageModule' 
+    loadChildren: './pages/test-map/test-map.module#TestMapPageModule'
   },
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+
 
 
 ];
