@@ -1,9 +1,9 @@
 <ion-content>
   <h3 text-center>Sélectionnez un millésime</h3>
-  <div *ngFor="let millesime of millesimes" (click)="goToDetail()">
+  <div *ngFor="let vintage of vintages" (click)="goToDetail($event)">
     <ion-card>
       <ion-item lines="none">
-        <h2 text-center>{{millesime}}</h2>
+        <h2 text-center>{{vintage.year}}</h2>
       </ion-item>
     </ion-card>
   </div>

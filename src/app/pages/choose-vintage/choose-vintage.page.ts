@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vin } from 'src/app/models/Vin.model';
 import { VinService } from 'src/app/services/vin.service';
 import { Router } from '@angular/router';
+import { Vintage } from 'src/app/models/Vintage.model';
 
 @Component({
   selector: 'app-choose-vintage',
@@ -11,23 +12,27 @@ import { Router } from '@angular/router';
 export class ChooseVintagePage implements OnInit {
 
   vin: Vin;
-  millesimes = new Array<string>();
+  vintages: Array<Vintage>;
 
   constructor(private vs: VinService, private router: Router) { }
 
   ngOnInit() {
-    this.getMillesime();
+    this.getWineVintages();
   }
 
-  getMillesime(){
+  getWineVintages() {
     this.vs.getVinDetail().subscribe(vin => {
       this.vin = vin;
-      console.log(this.vin.vintage);
-      this.millesimes.push(this.vin.vintage);
+      this.vs.getWineVintages(this.vin.id).subscribe(vintages => this.vintages = vintages);
     });
   }
 
-  goToDetail(){
+  goToDetail(event) {
+    this.vintages.forEach(v => {
+      if(v.year.toString() === event.target.innerText){
+        localStorage.setItem('selectedVintage', JSON.stringify(v));
+      }
+    });
     this.router.navigateByUrl('/wine-detail');
   }
 

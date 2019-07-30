@@ -1,74 +1,66 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Historique
-    </ion-title>
-    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-list>
-    <app-searchbar></app-searchbar>
-    <ion-card *ngFor="let vin of vins" class="wine-card">
-      <ion-item class="vin-wrapper">
-        <ion-img class="img-vin" src="data:image/jpeg;base64,{{vin.photo}}"></ion-img>
-        <div class="vin-info">
-          <ion-label class="vin-title">{{vin.name}}</ion-label>
-          <ion-label>{{vin.region}}</ion-label>
-          <ion-label>{{vin.producer}}</ion-label>
-          <ion-label>{{vin.grape_variety}}</ion-label>
-          <ion-label>{{vin.vintage}}</ion-label>
-          <ion-label>
-            <div id="like" class="rating" [ngSwitch]=vin.rate>
-              <p *ngSwitchDefault title="pas de note">
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-              </p>
-              <p *ngSwitchCase="1" title="note médiocre">
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-              </p>
-              <p *ngSwitchCase="2" title="note faible">
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-              </p>
-              <p *ngSwitchCase="3" title="note moyenne">
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-              </p>
-              <p *ngSwitchCase="4" title="note bonne">
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart-empty" class="heart"></ion-icon>
-              </p>
-              <p *ngSwitchCase="5" title="note excellente">
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-                <ion-icon name="heart" class="heart"></ion-icon>
-              </p>
-            </div>
-          </ion-label>
-        </div>
-      </ion-item>  
-    </ion-card>
-  </ion-list>
-</ion-content>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Mon historique
+      </ion-title>
+      <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list class="historical-list" id="list">
+      <app-searchbar></app-searchbar>
+      <div *ngIf="isLoading && cpt===0" class="loading-spinner">
+        <ion-spinner name="bubbles" color="primary"></ion-spinner>
+      </div>
+      <ion-card *ngIf="whiteWines?.length > 0">
+        <ion-card-header id="1" (click)="toggleAccordion($event)" class="card-header">
+          <ion-label>Vins blancs</ion-label>
+          <ion-icon class="card-icon" id="icon1" name="md-add"></ion-icon>
+        </ion-card-header>
+        <ion-card-content id="content1" class="wine-card">
+          <div *ngFor="let vin of whiteWines">
+            <app-wine-card [vin]="vin"></app-wine-card>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngIf="roseWines?.length > 0">
+        <ion-card-header id="2" (click)="toggleAccordion($event)" class="card-header">
+          <ion-label>Vins rosés</ion-label>
+          <ion-icon class="card-icon" id="icon2" name="md-add"></ion-icon>
+        </ion-card-header>
+        <ion-card-content id="content2" class="wine-card">
+          <div *ngFor="let vin of roseWines">
+            <app-wine-card [vin]="vin"></app-wine-card>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngIf="redWines?.length > 0">
+        <ion-card-header id="3" (click)="toggleAccordion($event)" class="card-header">
+          <ion-label class="card-header">Vins rouges</ion-label>
+          <ion-icon class="card-icon" id="icon3" name="md-add"></ion-icon>
+        </ion-card-header>
+        <ion-card-content id="content3" class="wine-card">
+          <div *ngFor="let vin of redWines">
+            <app-wine-card [vin]="vin"></app-wine-card>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngIf="mousseuxWines?.length > 0">
+        <ion-card-header id="4" (click)="toggleAccordion($event)" class="card-header">
+          <ion-label>Mousseux & spécialités</ion-label>
+          <ion-icon class="card-icon" id="icon4" name="md-add"></ion-icon>
+        </ion-card-header>
+        <ion-card-content id="content4" class="wine-card">
+          <div *ngFor="let vin of mousseuxWines">
+            <app-wine-card [vin]="vin"></app-wine-card>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <div *ngIf="wines.length === 0" [hidden]="isLoading">
+        <h3 style="text-align: center; margin-top:30px">Aucun vin n'a encore été noté.</h3>
+      </div>
+    </ion-list>
+  </ion-content>

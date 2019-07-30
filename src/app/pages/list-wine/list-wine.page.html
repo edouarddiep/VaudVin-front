@@ -10,10 +10,10 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
+  <ion-list class="wine-list" id="list">
     <app-searchbar></app-searchbar>
     <div *ngIf="isLoading && cpt===0" class="loading-spinner">
-      <ion-spinner name="crescent"></ion-spinner>
+      <ion-spinner name="bubbles" color="primary"></ion-spinner>
     </div>
     <ion-card *ngIf="whiteWines?.length > 0">
       <ion-card-header id="1" (click)="toggleAccordion($event)" class="card-header">

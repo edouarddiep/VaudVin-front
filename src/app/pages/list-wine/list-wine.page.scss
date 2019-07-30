@@ -1,46 +1,43 @@
-.img-toolbar{
-    width:100px;
-    height:50px;
+.img-toolbar {
+    width: 100px;
+    height: 50px;
 }
 
-.card-header{
+.card-header {
     background-color: #df4b68;
     color: #FFF;
-    font-size:2vh;
+    font-size: 2vh;
 }
 
-.card-icon{
-    float:right;
+.card-icon {
+    float: right;
     margin: auto;
     position: relative;
     display: block;
     vertical-align: middle;
-    font-size:3vh;
-    margin-top:-5px;
+    font-size: 3vh;
+    margin-top: -5px;
 }
 
-
-
-.wine-card{
+.wine-card {
     text-align: center;
     align-content: center;
-    height:100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top:20px;
+    padding-top: 20px;
     padding: 0px 16px;
-    max-height:0px;
+    max-height: 0px;
     transition: all 500ms ease;
     box-shadow: inset 0px 8px 10px -15px black, outset 0px -8px 10px -15px black;
     cursor: pointer;
 }
 
-.loading-spinner{
-    padding-top:10%;
+.loading-spinner {
+    padding-top: 10%;
     transform: scale(2);
     text-align: center;
     display: table;
     margin: auto;
     position: relative;
-  }
-
+}

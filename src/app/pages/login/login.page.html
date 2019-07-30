@@ -4,17 +4,19 @@
     <div class="div-label">
       <ion-label class="login-label" color="primary">Bienvenue sur VaudVin !</ion-label>
     </div>
-    <form (submit)="login($event)" (keydown)="login($event)">
+    <form>
       <ion-item class="form-group" responsive-sm>
-        <ion-input type="text" placeholder="Nom d'utilisateur" name="username" [(ngModel)]="credentials.name"></ion-input>
+        <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="credentials.email"></ion-input>
       </ion-item>
-      <ion-item class="form-group" responsive-sm>
-        <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="credentials.password">
-        </ion-input>
+      <ion-item class="form-group" responsive-sm (keydown)="login($event)">
+        <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="credentials.password"></ion-input>
       </ion-item>
       <div class="div-btn">
-        <ion-button class="form-btn" (click)="login($event)">Login</ion-button>
-        <br /><a href="/register" class="register-link">Nouveau ? S'inscrire ici</a>
+        <ion-button class="form-btn" (click)="login( )">Connexion</ion-button>
+        <ion-button class="form-btn" (click)="goToRegister()">S'inscrire</ion-button>
+      </div>
+      <div class="link-reset">
+        <!---<a routerLink="/reset-password">mot de passe oublié ?</a> -->
       </div>
     </form>
   </ion-card>

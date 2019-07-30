@@ -23,7 +23,7 @@ export const URL = {
     verb: '/api/',
     login: 'login',
     register: 'register',
-    profile: 'profile',
+    reset: 'sendPasswordResetLink',
   },
   wine: {
     verb: '/wines/',
@@ -33,5 +33,17 @@ export const URL = {
     verb: '/restaurants/',
     filter_name: '?name__icontains=',
     filter_npa: '?code_postal=',
+  },
+  vintage: {
+    verb: '/vintages/',
+    filter_name: '?name__icontains=',
+  },
+  rate: {
+    verb: '/rates/',
+    filter_name: '?name__icontains=',
+  },
+  user: {
+    verb: '/user/',
+    id: '/user_id',
   },
 }

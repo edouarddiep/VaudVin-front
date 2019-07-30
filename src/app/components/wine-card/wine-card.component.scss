@@ -1,20 +1,26 @@
-.img-vin{
-    width:50px;
-    height: 190px;
-    min-width: 50px;
-    min-height: 190px;
-    padding-bottom: 50px;
-}
+
 .vin-wrapper{
+    cursor: pointer;
     .vin-info{
         margin-left:10px;
-        padding-bottom:50px;
+        padding-top: 10px;
+        padding-bottom:10px;
         font-size: calc(11px + .5vw);
         .vin-title{
             font-weight: bold;
-            font-size: calc(13px + .5vw);
+            font-size: calc(15px + .5vw);
             overflow: visible;
             color: #df4b68;
         }
     }
 }
+
+.rating{
+    margin-left:-3px;
+    .heart{
+      width:30px;
+      height:30px;
+      color:#df4b68 !important;
+    }
+  }
+  

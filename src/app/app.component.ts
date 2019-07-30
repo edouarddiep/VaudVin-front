@@ -35,6 +35,11 @@ export class AppComponent {
       url: '/test-map',
       icon: 'map'
     },
+    {
+      title: 'Se déconnecter',
+      url: '/logout',
+      icon: 'exit'
+    },
   ];
 
   constructor(

@@ -43,7 +43,9 @@ const routes: Routes = [
     path: 'test-map',
     loadChildren: './pages/test-map/test-map.module#TestMapPageModule'
   },
-  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule' },
+
 
 
 

@@ -21,7 +21,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCNCcZrK2XKLv3wxpi7gnCRF1ElHbeHQj8'
+      apiKey: 'AIzaSyCeRuufysM9JnUKkN5FXkd4vxDBIwHCV2Q'
     })
   ],
   declarations: [FindRestaurantPage],

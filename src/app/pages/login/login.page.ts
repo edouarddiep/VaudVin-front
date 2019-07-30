@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenPayload, AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/models/User.model';
+import { ToastComponent } from 'ng-snotify';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +12,28 @@ import { TokenPayload, AuthenticationService } from 'src/app/services/authentica
 })
 export class LoginPage {
 
-  credentials: TokenPayload = {
+  credentials: User = {
     id: 0,
     name: '',
     email: '',
     password: ''
   }
+  loginReady = false;
 
-  constructor(private auth: AuthenticationService, private router: Router) { }
+  constructor(private auth: AuthenticationService, private router: Router, private snackBar: MatSnackBar) { }
 
   login(event){
-    if(event.keyCode === 13 || event.keyCode === null){
+    if(event){
+      if(event.keyCode === 13){
+        this.loginReady = true;
+      } else {
+        this.loginReady = false;
+      }
+    } else {
+      this.loginReady = true;
+    }
+    if(this.loginReady){
       this.auth.login(this.credentials).subscribe(() => {
-        console.log("Les credentials name"+this.credentials.name);
         this.router.navigateByUrl('/home');
       },
       err => {

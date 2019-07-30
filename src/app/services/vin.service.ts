@@ -3,6 +3,7 @@ import { Vin } from '../models/Vin.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { URL } from '../../environments/environment';
+import { Vintage } from '../models/Vintage.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,6 @@ export class VinService {
   millesime: Array<number>;
   millesime$ = new BehaviorSubject<Array<number>>(new Array<number>());
 
-  listeVinsFiltree = new Array<Vin>();
-
   constructor(private http: HttpClient) { }
 
   getWines(): Observable<Array<Vin>> {
@@ -29,13 +28,6 @@ export class VinService {
 
   pushNextVinArray(vins : Array<Vin>) {
     this.vins$.next(vins);
-  }
-
-  getWineVintages(wines : Array<Vin>): Observable<Set<string>> { // récupère les millésime
-    wines.forEach(w => {
-      this.vintages.add(w.vintage);
-    });
-    return of(this.vintages);
   }
 
   getSelectedVin(vin: Vin): Observable<Vin> {
@@ -50,6 +42,10 @@ export class VinService {
 
   getVinDetail() {
     return this.vin$.asObservable();
+  }
+
+  getWineVintages(id: number) : Observable<Vintage[]> {
+    return this.http.get<Array<Vintage>>(URL.domaine + URL.wine.verb + id + URL.vintage.verb);
   }
 
   getFilterResults() {

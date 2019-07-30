@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 const routes: Routes = [
   {
@@ -20,9 +22,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    MatSnackBarModule,
     RouterModule.forChild(routes)
   ],
   providers: [AuthenticationService],
   declarations: [LoginPage]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

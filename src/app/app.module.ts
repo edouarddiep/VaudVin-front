@@ -22,6 +22,13 @@ import { LoginPage } from './pages/login/login.page';
 import { AuthGuardService } from './services/auth-guard.service';
 import { RegisterPage } from './pages/register/register.page';
 import { AgmCoreModule } from '@agm/core';
+import { AuthenticationService } from './services/authentication.service';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { RatingService } from './services/rating.service';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 library.add(fas, far, fab);
 
@@ -37,16 +44,20 @@ const routes: Routes = [
   ],
   entryComponents: [],
   imports: [
+    CommonModule,
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    MatSnackBarModule,
     HttpClientModule,
     FontAwesomeModule,
     ComponentsModule,
     ReactiveFormsModule,
+    SnotifyModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCNCcZrK2XKLv3wxpi7gnCRF1ElHbeHQj8'
+      apiKey: 'AIzaSyCeRuufysM9JnUKkN5FXkd4vxDBIwHCV2Q'
     }),
   ],
   providers: [
@@ -58,7 +69,10 @@ const routes: Routes = [
     Keyboard,
     SplashScreen,
     HttpClientModule,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    AuthenticationService,
+    RatingService,
+    SnotifyService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, useValue: ToastDefaults }
   ],
   bootstrap: [AppComponent]
 })

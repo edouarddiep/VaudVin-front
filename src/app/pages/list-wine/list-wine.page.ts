@@ -88,4 +88,11 @@ export class ListWinePage implements OnInit {
     }
     this.accordionExpanded = !this.accordionExpanded;
   }
+
+  setTransition(){
+    const list = document.getElementById('list');
+    setTimeout(() => {
+      list.style.setProperty('opacity', '1');
+    }, 300);
+  }
 }
