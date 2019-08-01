@@ -1,11 +1,11 @@
-<ion-item lines="none" class="vin-wrapper" (click)="goToDetails()" id="item">
+<ion-item lines="none" class="vin-wrapper" (click)="goToVintages()" id="item">
   <div class="vin-info">
     <ion-label class="vin-title">{{vin.name}}</ion-label>
     <ion-label>{{vin.region}}</ion-label>
     <ion-label>{{vin.producer}}</ion-label>
     <ion-label>{{vin.grape_variety}}</ion-label>
     <ion-label>Vin {{vin.category}}</ion-label>
-    <div *ngIf="router.url === '/historical' && !isRated">
+    <div *ngIf="!isRated">
       <ion-label *ngIf="percent < 40" id="labelRecommended" style="font-size: 1.4em; color:red;">
         Recommandé à {{percent}}% <ion-icon name="thumbs-down"></ion-icon>
       </ion-label>
@@ -20,7 +20,7 @@
     </div>
     <div id="like" class="rating" *ngIf="router.url === '/historical' && isRated">
       <!-- 0 HEART - NO RATE -->
-      <ng-container *ngIf="rateValue === 0" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 0" title="note-nulle">
         <ion-icon name="heart-empty" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
@@ -28,7 +28,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 0.5 HEARTS -->
-      <ng-container *ngIf="rateValue === 0.5" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 0.5" title="note-nulle">
         <ion-icon name="heart-half" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
@@ -36,7 +36,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 1 HEART -->
-      <ng-container *ngIf="rateValue === 1" title="note-insuffisante">
+      <ng-container *ngIf="moyenneMill === 1" title="note-insuffisante">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
@@ -44,7 +44,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 1.5 HEARTS -->
-      <ng-container *ngIf="rateValue === 1.5" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 1.5" title="note-nulle">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart-half" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
@@ -52,7 +52,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 2 HEARTS -->
-      <ng-container *ngIf="rateValue === 2" title="note-faible">
+      <ng-container *ngIf="moyenneMill === 2" title="note-faible">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart-empty" class="heart"></ion-icon>
@@ -60,7 +60,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 2.5 HEARTS -->
-      <ng-container *ngIf="rateValue === 2.5" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 2.5" title="note-nulle">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart-half" class="heart"></ion-icon>
@@ -68,7 +68,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 3 HEARTS -->
-      <ng-container *ngIf="rateValue === 3" title="note-moyenne">
+      <ng-container *ngIf="moyenneMill === 3" title="note-moyenne">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
@@ -76,7 +76,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 3.5 HEARTS -->
-      <ng-container *ngIf="rateValue === 3.5" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 3.5" title="note-nulle">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
@@ -84,7 +84,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 4 HEARTS -->
-      <ng-container *ngIf="rateValue === 4" title="note-bonne">
+      <ng-container *ngIf="moyenneMill === 4" title="note-bonne">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
@@ -92,7 +92,7 @@
         <ion-icon name="heart-empty" class="heart"></ion-icon>
       </ng-container>
       <!-- 4.5 HEARTS -->
-      <ng-container *ngIf="rateValue === 4.5" title="note-nulle">
+      <ng-container *ngIf="moyenneMill === 4.5" title="note-nulle">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
@@ -100,7 +100,7 @@
         <ion-icon name="heart-half" class="heart"></ion-icon>
       </ng-container>
       <!-- 5 HEARTS -->
-      <ng-container *ngIf="rateValue === 5" title="note-excellente">
+      <ng-container *ngIf="moyenneMill === 5" title="note-excellente">
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>
         <ion-icon name="heart" class="heart"></ion-icon>

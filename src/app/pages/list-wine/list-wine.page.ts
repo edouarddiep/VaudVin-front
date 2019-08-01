@@ -2,6 +2,10 @@ import { Component, OnInit, NgModule, CUSTOM_ELEMENTS_SCHEMA, ViewChild, Rendere
 import { VinService } from 'src/app/services/vin.service';
 import { Router } from '@angular/router';
 import { Vin } from 'src/app/models/Vin.model';
+import { Rate } from 'src/app/models/Rate.model';
+import { UserService } from 'src/app/services/user.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
   selector: 'app-list-wine',
@@ -19,12 +23,11 @@ export class ListWinePage implements OnInit {
   isLoading = false;
 
   searched: string;
-  base64 = 'data:image/jpeg;base64,';
   accordionExpanded = false;
   accordionId: any;
   cpt = 0;
 
-  constructor(private vs: VinService, private router: Router, public renderer: Renderer) { }
+  constructor(private vs: VinService, private rs: RatingService, private router: Router, public renderer: Renderer, private us: UserService, private auth: AuthenticationService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -38,7 +41,7 @@ export class ListWinePage implements OnInit {
 
   getWines() {
     this.vs.getWines().subscribe(wines => {
-      if(this.wines.length === 0){
+      if (this.wines.length === 0) {
         this.isLoading = true;
       }
       this.wines = wines;
@@ -89,10 +92,13 @@ export class ListWinePage implements OnInit {
     this.accordionExpanded = !this.accordionExpanded;
   }
 
-  setTransition(){
+  setTransition() {
     const list = document.getElementById('list');
     setTimeout(() => {
       list.style.setProperty('opacity', '1');
     }, 300);
   }
+
+
+
 }

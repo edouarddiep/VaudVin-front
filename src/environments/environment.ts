@@ -43,7 +43,7 @@ export const URL = {
     filter_name: '?name__icontains=',
   },
   user: {
-    verb: '/user/',
+    verb: '/users/',
     id: '/user_id',
   },
 }

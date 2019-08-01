@@ -38,7 +38,7 @@ export class HistoricalPage implements OnInit {
       this.isLoading = false;
       this.cpt = 1;
     }, 1000);
-    this.setTransition();
+    //this.setTransition();
   }
 
   getWines() {
@@ -50,7 +50,7 @@ export class HistoricalPage implements OnInit {
       this.redWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rouge'));
       this.whiteWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('blanc'));
       this.roseWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rosé'));
-      this.mousseuxWines = this.wines.filter(w => w.is_assembled);
+      //this.mousseuxWines = this.wines.filter(w => w.is_assembled);
       this.isLoading = false;
     });
   }
@@ -61,7 +61,7 @@ export class HistoricalPage implements OnInit {
       this.redWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rouge'));
       this.whiteWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('blanc'));
       this.roseWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rosé'));
-      this.mousseuxWines = this.wines.filter(w => w.is_assembled);
+     // this.mousseuxWines = this.wines.filter(w => w.is_assembled);
     });
   }
 

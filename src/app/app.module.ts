@@ -24,7 +24,6 @@ import { RegisterPage } from './pages/register/register.page';
 import { AgmCoreModule } from '@agm/core';
 import { AuthenticationService } from './services/authentication.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-import { RatingService } from './services/rating.service';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -70,7 +69,6 @@ const routes: Routes = [
     SplashScreen,
     HttpClientModule,
     AuthenticationService,
-    RatingService,
     SnotifyService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, useValue: ToastDefaults }
   ],

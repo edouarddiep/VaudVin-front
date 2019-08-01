@@ -44,7 +44,7 @@ export class VinService {
     return this.vin$.asObservable();
   }
 
-  getWineVintages(id: number) : Observable<Vintage[]> {
+  getWineVintages(id: number) : Observable<Array<Vintage>> {
     return this.http.get<Array<Vintage>>(URL.domaine + URL.wine.verb + id + URL.vintage.verb);
   }
 

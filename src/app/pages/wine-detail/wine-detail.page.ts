@@ -19,7 +19,7 @@ export class WineDetailPage implements OnInit {
   base64 = 'data:image/png;base64,';
   isBio: string;
   isWoody: string;
-  rates: Rate[];
+  rates:  Array<Rate>;
   existingRates: number;
   vintage: Vintage; // le millésime du vin sélectionné
   user_id: number;
@@ -108,7 +108,7 @@ export class WineDetailPage implements OnInit {
     if (this.existingRates > 0) { // dans le cas où l'utilisateur a déjà noté le vin sur lequel il se trouve
       this.rates[0].value = this.rateValue; // on update la note existante avec la nouvelle
       this.rs.updateRate(this.rates[0]).subscribe();
-      alert('La note a bien été mise à jour !');
+      alert('La note a bien été mise à jour');
       this.router.navigate(['/historical'])
         .then(() => {
           window.location.reload();
@@ -117,7 +117,7 @@ export class WineDetailPage implements OnInit {
     } else { // dans le cas où l'utilisateur note pour la 1ère fois le vin sur lequel il se trouve
       const rate = Rate.createRate(this.rateValue, this.vintage.id, this.user_id);
       this.rs.postRate(rate).subscribe(() => {
-        alert('Merci d\'avoir évalué ce millésime !');
+        alert('Merci d\'avoir évalué ce millésime !')
         this.router.navigate(['/historical'])
           .then(() => {
             window.location.reload();

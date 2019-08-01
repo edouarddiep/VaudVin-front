@@ -8,7 +8,9 @@
         font-size: calc(11px + .5vw);
         .vin-title{
             font-weight: bold;
-            font-size: calc(15px + .5vw);
+            white-space:pre-wrap;
+            word-break:break-word;
+            font-size: calc(17px + .5vw);
             overflow: visible;
             color: #df4b68;
         }
