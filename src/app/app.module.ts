@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, Routes } from '@angular/router';
@@ -19,7 +25,6 @@ import { Config, Platform, DomController, App, Keyboard } from 'ionic-angular';
 import { ComponentsModule } from './components/components.module';
 import { HomePage } from './pages/home/home.page';
 import { LoginPage } from './pages/login/login.page';
-import { AuthGuardService } from './services/auth-guard.service';
 import { RegisterPage } from './pages/register/register.page';
 import { AgmCoreModule } from '@agm/core';
 import { AuthenticationService } from './services/authentication.service';
@@ -72,6 +77,6 @@ const routes: Routes = [
     SnotifyService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, useValue: ToastDefaults }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -10,7 +10,18 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card class="home-card">
-    <ion-label class="home-label" color="primary">Bonjour {{name}} ! Merci d'avoir choisi VaudVin.<br/><br/>Grâce à cette application, tous vos vins préférés sont accessibles en seulement quelques clics ;)</ion-label>
-  </ion-card>
+  <div class="blurred-bg-container">
+    <div class="content">
+      <div class="text">
+          <ion-label class="home-label" color="primary">Bonjour {{name}} ! Merci d'avoir choisi VaudVin.
+              <ion-icon ios="ios-wine" md="md-wine" class="home-icon"></ion-icon>
+              <br />Vous pouvez naviguer sur l'application à l'aide du menu situé en haut à gauche de cette page.
+            </ion-label>
+      </div>
+      <div class="blur"></div>
+    </div>
+  </div>
+  <div>
+    <ion-button (click)="presentAlert()">Basic Alert</ion-button>
+  </div>
 </ion-content>

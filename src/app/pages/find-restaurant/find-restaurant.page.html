@@ -11,25 +11,25 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-card *ngFor="let restaurant of restaurants" class="restau-card" (click)="getDetails(restaurant)">
-      <ion-item>
-        <div class="div-icon">
-          <ion-icon name="restaurant" class="img-icon"></ion-icon>
-        </div>
-        <div class="restau-info">
-          <ion-label class="restau-title">{{restaurant.name}}</ion-label>
-          <ion-label>{{restaurant.type}}</ion-label>
-          <ion-label>{{restaurant.address_1}}</ion-label>
-          <ion-label>{{restaurant.zip_code}} - {{restaurant.city}}</ion-label>
-          <ion-label>{{restaurant.phone_number}}</ion-label>
-        </div>
-      </ion-item>  
-    </ion-card>
+    <app-searchbar></app-searchbar>
+    <div *ngIf="isLoading && cpt===0" class="loading-spinner">
+      <ion-spinner name="bubbles" color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="restaurants.length === 0" [hidden]="isLoading">
+      <h3 style="text-align: center; margin-top:30px">Aucun restaurant ne correspond à cette recherche.</h3>
+    </div>
   </ion-list>
-  <agm-map
-   [style.height.px]="height"
-   [latitude]="lat"
-   [longitude]="lng">
-     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom" id="map">
+    <agm-marker *ngFor="let mark of lstLocalisations" [(latitude)]="mark.lat" [longitude]="mark.lng" (markerClick)="openIW(infoWindow)">
+      <agm-info-window id="infoWindow" style="text-align: center" maxWidth="30px">
+        <p>
+          <span><b>{{mark.restaurant.res_name}}</b></span><br/>
+          <span>{{mark.restaurant.res_address_1}}</span><br/>
+          <span>{{mark.restaurant.res_zip_code}} {{mark.restaurant.res_city}}</span><br/>
+          <b><a class="info-link" (click)="goToWineCard(mark.restaurant)">Afficher la carte des vins</a></b>
+        </p>
+      </agm-info-window>
+    </agm-marker>
+    <agm-marker [(latitude)]="lat" [longitude]="lng" [iconUrl]="icon"></agm-marker>
   </agm-map>
 </ion-content>

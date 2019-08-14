@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { FindRestaurantPage } from './find-restaurant.page';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCeRuufysM9JnUKkN5FXkd4vxDBIwHCV2Q'

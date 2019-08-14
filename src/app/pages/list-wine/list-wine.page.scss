@@ -1,3 +1,7 @@
+ion-content{
+    --ion-background-color:white;
+}
+
 .img-toolbar {
     width: 100px;
     height: 50px;
@@ -27,9 +31,9 @@
     flex-direction: column;
     padding-top: 20px;
     padding: 0px 16px;
-    max-height: 0px;
     transition: all 500ms ease;
     box-shadow: inset 0px 8px 10px -15px black, outset 0px -8px 10px -15px black;
+    background-color:white;
     cursor: pointer;
 }
 

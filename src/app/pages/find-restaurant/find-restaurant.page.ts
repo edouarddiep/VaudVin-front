@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Restaurant } from 'src/app/models/Restaurant.model';
@@ -27,7 +33,8 @@ interface Location {
   marker?: Marker;
 }
 
-class LocalisationMarqueur {
+/** MARQUEUR PERMETTANT DE LOCALISER LES RESTAURANTS SUR L'API GOOGLE MAPS */
+class GeoLocationMarqueur {
   restaurant: Restaurant;
   lat: number;
   lng: number;
@@ -55,7 +62,14 @@ export class FindRestaurantPage implements OnInit {
   zoom: number;
   isLoading = false;
   cpt = 0;
-  lstLocalisations = new Array<LocalisationMarqueur>();
+  height = 0;
+  infoWindow: any;
+  requestRestaurants: any;
+  requestCafes: any;
+  requestBars: any;
+  service: any;
+  markers = new Array<any>();
+  lstLocalisations = new Array<GeoLocationMarqueur>();
   icon = {
     url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
     scaledSize: {
@@ -64,7 +78,7 @@ export class FindRestaurantPage implements OnInit {
     }
   }
 
-  @ViewChild(AgmMap, {read: true, static: false}) map: AgmMap;
+  @ViewChild(AgmMap, { read: true, static: false }) map: AgmMap;
   public location: Location = {
     lat: this.lat,
     lng: this.lng,
@@ -72,43 +86,55 @@ export class FindRestaurantPage implements OnInit {
       lat: this.lat,
       lng: this.lng,
     },
-    zoom: 5
+    zoom: 14
   };
 
-  constructor(public mapsApiLoader: MapsAPILoader,
-    private zone: NgZone,
-    private wrapper: GoogleMapsAPIWrapper, private rs : RestaurantService, private router : Router, public platform: Platform) {
+  constructor(public mapsApiLoader: MapsAPILoader, private rs: RestaurantService, private router: Router, public platform: Platform) {
     this.mapsApiLoader = mapsApiLoader;
-    this.zone = zone;
-    this.wrapper = wrapper;
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
     });
   }
 
   ngOnInit() {
-    this.rs.getRestaurants().subscribe(restaurants => this.restaurants = restaurants);
-    console.log(this.restaurants.length);
+    const infoWindow = document.getElementById('infoWindow');
+    console.log(infoWindow);
+    this.isLoading = true;
+    this.getRestaurants();
+    this.getFilterResults();
     setTimeout(() => {
       this.location.marker.draggable = false;
       this.geoLocation();
-      this.getRestaurants();
       this.cpt = 1;
       this.isLoading = false;
-    }, 0);
+    }, 500);
   }
 
   getRestaurants() {
-    this.rs.getRestaurants().subscribe(restaurants => this.restaurants = restaurants);
+    this.rs.getRestaurants().subscribe(restaurants => {
+      this.restaurants = restaurants;
+      this.updateOnMap();
+    });
   }
 
+  getFilterResults() {
+    this.rs.getFilterResults().subscribe(restaurants => {
+      this.restaurants = restaurants;
+    });
+  }
+
+
   geoLocation() {
+    console.log(navigator);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        console.log(lat, lng);
         if (position) {
-          this.zoom = 16;
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
+          this.zoom = 14;
+          this.lat = lat;
+          this.lng = lng;
         }
       },
         (error: PositionError) => console.log(error));
@@ -117,19 +143,67 @@ export class FindRestaurantPage implements OnInit {
     }
   }
 
-  navigateToRestaurant(restaurant: Restaurant) {
-    //this.router.navigate(['vendor-profil/' + restaurant.id]);
-    console.log("route pour restaurant");
+  updateOnMap() {
+    this.restaurants.forEach(r => {
+      this.location.addresse = r.res_address_1;
+      this.location.ville = r.res_city;
+      this.location.pays = r.res_country;
+      let full_address: string = this.location.addresse || ""
+      if (this.location.ville) full_address = full_address + " " + this.location.ville
+      if (this.location.pays) full_address = full_address + " " + this.location.pays
+      this.findLocation(full_address, r);
+    });
   }
 
-/*
-  onChange(event){
-    this.rs.getRestaurantsByName(event.detail.value).subscribe(restaurants => this.restaurants = restaurants);
-    this.rs.pushNextArrayRestaurants(this.restaurants);
+  findLocation(address, r: Restaurant) {
+    if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
+    this.geocoder.geocode({
+      'address': address
+    }, (results, status) => {
+      console.log(results);
+      if (status === google.maps.GeocoderStatus.OK) {
+        for (let i = 0; i < results[0].address_components.length; i++) {
+          const types = results[0].address_components[i].types;
+
+          if (types.indexOf('locality') !== -1) {
+            this.location.addresse = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('pays') !== -1) {
+            this.location.pays = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('postal_code') !== -1) {
+            this.location.code_postal = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('administrative_area_level_1') !== -1) {
+            this.location.ville = results[0].address_components[i].long_name;
+          }
+        }
+
+        if (results[0].geometry.location) {
+          this.location.lat = results[0].geometry.location.lat();
+          this.location.lng = results[0].geometry.location.lng();
+          this.lstLocalisations.push(new GeoLocationMarqueur(r, this.location.lat, this.location.lng));
+          this.location.marker.lat = results[0].geometry.location.lat();
+          this.location.marker.lng = results[0].geometry.location.lng();
+          this.location.marker.draggable = true;
+          this.location.viewport = results[0].geometry.viewport;
+        }
+      } else {
+        console.log("Sorry, this search produced no results.");
+      }
+    });
   }
-*/
-  getDetails(r: Restaurant){
-    this.rs.setRestaurant(r);
-    this.router.navigate(['restaurant-detail']);
+
+  public openIW(data){
+    console.log(data.infoWindowClose);
+    if(data.isOpen()){
+    data.close();
+    }
+  }
+
+
+  goToWineCard(r: Restaurant) { // A IMPLEMENTER AVEC LA CARTE FONCTIONNELLE !!!
+    this.rs.pushNextRestaurant(r);
+    this.router.navigateByUrl('restaurant-card/' + r.res_id);
   }
 }

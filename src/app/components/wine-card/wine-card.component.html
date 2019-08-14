@@ -1,22 +1,29 @@
-<ion-item lines="none" class="vin-wrapper" (click)="goToVintages()" id="item">
+<ion-item [lines]="router.url === '/list-wine' || router.url.includes('/restaurant-card/') ? 'full' : 'none'"class="vin-wrapper" (click)="goToVintages()" id="item">
   <div class="vin-info">
-    <ion-label class="vin-title">{{vin.name}}</ion-label>
-    <ion-label>{{vin.region}}</ion-label>
-    <ion-label>{{vin.producer}}</ion-label>
-    <ion-label>{{vin.grape_variety}}</ion-label>
-    <ion-label>Vin {{vin.category}}</ion-label>
-    <div *ngIf="!isRated">
-      <ion-label *ngIf="percent < 40" id="labelRecommended" style="font-size: 1.4em; color:red;">
+    <ion-label class="vin-title">{{vin.win_name}}</ion-label>
+    <ion-label>{{vin.win_region}}</ion-label>
+    <ion-label>{{vin.win_producer}}</ion-label>
+    <ion-label>{{vin.win_grape_variety}}</ion-label>
+    <ion-label>Vin {{vin.win_category}}</ion-label>
+    <div *ngIf="(router.url === '/list-wine' || router.url.includes('/restaurant-card/')) && !isRated" class="label-recommended">
+      <ion-label *ngIf="percent < 40" id="labelRecommended" style="color:red;">
         Recommandé à {{percent}}% <ion-icon name="thumbs-down"></ion-icon>
       </ion-label>
-      <ion-label *ngIf="percent >= 40 && percent < 80" id="labelRecommended" style="font-size: 1.4em; color:orange;">
+      <ion-label *ngIf="percent >= 40 && percent < 80" id="labelRecommended" style="color:orange;">
         Recommandé à {{percent}}% <ion-icon name="thumbs-up">
         </ion-icon>
       </ion-label>
-      <ion-label *ngIf="percent >= 80 && percent <= 100" id="labelRecommended" style="font-size: 1.4em; color:green;">
+      <ion-label *ngIf="percent >= 80 && percent <= 100" id="labelRecommended" style="color:green;">
         Recommandé à {{percent}}% <ion-icon name="thumbs-up">
         </ion-icon>
       </ion-label>
+    </div>
+    <div *ngIf="(router.url === '/list-wine' || router.url.includes('/restaurant-card/')) && isRated" class="label-recommended">
+      <ion-label class="rate-label">Vous avez noté ce vin : 
+        <span class="moyenne-mill">
+          <strong>{{moyenneMill}} / 5 </strong>
+        </span></ion-label>
+        
     </div>
     <div id="like" class="rating" *ngIf="router.url === '/historical' && isRated">
       <!-- 0 HEART - NO RATE -->

@@ -1,10 +1,8 @@
 <ion-content>
-  <h3 text-center>Sélectionnez un millésime</h3>
-  <div *ngFor="let vintage of vintages" (click)="goToDetail($event)">
-    <ion-card>
-      <ion-item lines="none">
-        <h2 text-center>{{vintage.year}}</h2>
-      </ion-item>
-    </ion-card>
-  </div>
+  <ion-item class="list-vintage" lines="none">
+    <ion-label>Sélectionnez un millésime</ion-label>
+    <ion-select [(ngModel)]="selectedYear" (ngModelChange)="goToDetail($event)" cancelText="Annuler" okText="Valider">
+      <ion-select-option  *ngFor="let year of listYear">{{year}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>

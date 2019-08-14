@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Component, OnInit, Renderer } from '@angular/core';
 import { VinService } from 'src/app/services/vin.service';
 import { Vin } from 'src/app/models/Vin.model';
@@ -18,9 +24,9 @@ export class HistoricalPage implements OnInit {
   roseWines: Array<Vin>;
   mousseuxWines: Array<Vin>;
   isLoading = false;
+  isRated = false;
 
   searched: string;
-  base64 = 'data:image/jpeg;base64,';
   accordionExpanded = false;
   accordionId: any;
   cpt = 0;
@@ -32,25 +38,24 @@ export class HistoricalPage implements OnInit {
     this.user_id = this.auth.getUserId();
     console.log("L'ID DU USER CONNECTÉ = " + this.user_id);
     this.isLoading = true;
-    this.getWines();
+    this.getUserWines();
     this.getFilterResults();
     setTimeout(() => {
       this.isLoading = false;
       this.cpt = 1;
     }, 1000);
-    //this.setTransition();
   }
 
-  getWines() {
-    this.vs.getWines().subscribe(wines => {
+  getUserWines() {
+    this.rs.getUserRatesDistinct(this.user_id).subscribe(wines => {
       if (this.wines.length === 0) {
         this.isLoading = true;
       }
       this.wines = wines;
-      this.redWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rouge'));
-      this.whiteWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('blanc'));
-      this.roseWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rosé'));
-      //this.mousseuxWines = this.wines.filter(w => w.is_assembled);
+      this.redWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('rouge'));
+      this.whiteWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('blanc'));
+      this.roseWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('rosé'));
+      this.mousseuxWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('champagne') || w.win_category.toLocaleLowerCase().includes('mousseux'));
       this.isLoading = false;
     });
   }
@@ -58,10 +63,10 @@ export class HistoricalPage implements OnInit {
   getFilterResults() {
     this.vs.getFilterResults().subscribe(wines => {
       this.wines = wines;
-      this.redWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rouge'));
-      this.whiteWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('blanc'));
-      this.roseWines = this.wines.filter(w => w.category.toLocaleLowerCase().includes('rosé'));
-     // this.mousseuxWines = this.wines.filter(w => w.is_assembled);
+      this.redWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('rouge'));
+      this.whiteWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('blanc'));
+      this.roseWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('rosé'));
+      this.mousseuxWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('champagne') || w.win_category.toLocaleLowerCase().includes('mousseux'));
     });
   }
 

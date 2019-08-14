@@ -1,8 +1,17 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Component, OnInit } from '@angular/core';
 import { Vin } from 'src/app/models/Vin.model';
 import { VinService } from 'src/app/services/vin.service';
 import { Router } from '@angular/router';
 import { Vintage } from 'src/app/models/Vintage.model';
+import { VintageService } from 'src/app/services/vintage.service';
+import { RatingService } from 'src/app/services/rating.service';
+import { Rate } from 'src/app/models/Rate.model';
 
 @Component({
   selector: 'app-choose-vintage',
@@ -13,27 +22,55 @@ export class ChooseVintagePage implements OnInit {
 
   vin: Vin;
   vintages: Array<Vintage>;
+  rates: Array<Rate>;
+  listYear = new Array<string>();
 
-  constructor(private vs: VinService, private router: Router) { }
+  constructor(private vs: VinService, private rs: RatingService, private vintageService: VintageService, private router: Router) { }
 
   ngOnInit() {
-    this.getWineVintages();
+    setTimeout(() => {
+      this.fillListYears();
+    }, 100);
   }
 
-  getWineVintages() {
-    this.vs.getVinDetail().subscribe(vin => {
-      this.vin = vin;
-      this.vs.getWineVintages(this.vin.id).subscribe(vintages => this.vintages = vintages);
-    });
+  fillListYears(){
+    for (let i = 2019; i >= 1990; i--) {
+      this.listYear.push(i.toString());
+    }
+  }
+
+  test(event){
+    console.log(event);
   }
 
   goToDetail(event) {
-    this.vintages.forEach(v => {
-      if(v.year.toString() === event.target.innerText){
-        localStorage.setItem('selectedVintage', JSON.stringify(v));
-      }
+    let selectedYear = parseInt(event);
+    this.vs.getVinDetail().subscribe(vin => {
+      this.vin = vin;
+      const newVintage = Vintage.createVintage(selectedYear, this.vin.win_id);
+      this.vs.getWineVintages(this.vin.win_id).subscribe(vintages => {
+        this.vintages = vintages;
+        const filtered = this.vintages.filter(v => v.vin_year === selectedYear);
+        if (filtered.length > 0) { // si le millésime de ce vin existe déjà dans la base de données
+          const v = this.vintages.find(v => v.vin_year === selectedYear);
+          localStorage.setItem('selectedVintage', JSON.stringify(v));
+          selectedYear = null;
+          this.router.navigateByUrl('wines/' + vin.win_id + '/vintages/' + v.vin_id + '/detail');
+          return;
+        } else { // le millésime n'existe pas dans la base de données du coup on crée
+          if(selectedYear === null){
+            return;
+          } else {
+            this.vintageService.postVintage(newVintage).subscribe(data => {
+              localStorage.setItem('selectedVintage', JSON.stringify(data));
+              selectedYear = null;
+              this.router.navigateByUrl('wines/' + vin.win_id + '/vintages/' + data.vin_id + '/detail');
+              return;
+            });
+          }
+        }
+      });
     });
-    this.router.navigateByUrl('/wine-detail');
   }
 
 }

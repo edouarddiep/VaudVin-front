@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Injectable } from '@angular/core';
 import { Vin } from '../models/Vin.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -31,7 +37,7 @@ export class VinService {
   }
 
   getSelectedVin(vin: Vin): Observable<Vin> {
-    var index = this.vins.indexOf(vin);
+    const index = this.vins.indexOf(vin);
     this.vin = this.vins[index];
     return of(this.vin);
   }
@@ -47,6 +53,11 @@ export class VinService {
   getWineVintages(id: number) : Observable<Array<Vintage>> {
     return this.http.get<Array<Vintage>>(URL.domaine + URL.wine.verb + id + URL.vintage.verb);
   }
+
+  getRestaurantWines(res_id: number): Observable<Array<Vin>> {
+    return this.http.get<Array<Vin>>(URL.domaine + URL.restaurant.verb + res_id + URL.wine.verb);
+  }
+
 
   getFilterResults() {
     return this.vins$.asObservable();

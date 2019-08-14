@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { NgModule } from '@angular/core';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { IonicModule } from '@ionic/angular';

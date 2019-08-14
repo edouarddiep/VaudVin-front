@@ -1,5 +1,5 @@
 .rating {
-  margin: 20px;
+  margin: 15px;
 
   .heart {
     width: 40px;
@@ -9,8 +9,9 @@
 }
 
 .wine-title {
-  font-size: calc(17px + .5vw);
-
+  font-size: calc(20px + .5vw);
+  text-align: center;
+  font-weight: bold;
 }
 
 .wine-card {
@@ -38,32 +39,89 @@
   }
 
   .vin-info {
-    margin-left: 20px;
-    padding-bottom: 50px;
-    white-space:pre-wrap;
-    word-break:break-word;
-    
+    padding-bottom: 30px;
+    white-space: pre-wrap;
+    word-break: break-word;
+
     .vin-title {
       text-align: center;
       margin: auto;
       color: #df4b68;
       font-weight: bold;
-      white-space:pre-wrap;
-      word-break:break-word;
+      white-space: pre-wrap;
+      word-break: break-word;
       -webkit-hyphens: none;
       -moz-hyphens: none;
       hyphens: none;
       font-size: calc(25px + .5vw);
     }
 
+    .invalid-feedback {
+      font-size: 0.7em;
+      color: red;
+      left: 50px;
+    }
+
+    .card {
+      margin: auto;
+      position: relative;
+      display: block;
+      border: 2px solid #df4b68;
+      width: 85%;
+    }
+
     .item-info {
       word-wrap: break-word;
+      white-space: pre-wrap;
       padding-top: 10px;
-      margin-right: 35px;
+
+      .label-info {
+        font-weight: 500;
+        font-size: 1.2em;
+      }
     }
+  }
+
+  .comment-item {
+    width: 88%;
+    margin: auto;
+    position: relative;
+    display: block;
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    .comment-container{
+      border-top: 1px solid #df4b68;
+      padding: 10px;
+      .comment-value {
+        font-weight: normal;
+        font-style: italic;
+        text-align: center;
+      }
+    }
+
+    .comment-ta {
+      margin: auto;
+      position: relative;
+      display: block;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding-left: 10px;
+
+    }
+  }
+
+  .letter-counts {
+    font-size: 0.7em;
+    color: gray;
   }
 
   .btn-rating {
     padding-bottom: 20px;
   }
+}
+
+.alert-saved{
+  font-weight: normal;
 }

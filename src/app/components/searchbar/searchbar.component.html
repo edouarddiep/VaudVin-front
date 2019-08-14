@@ -1,1 +1,1 @@
-<ion-searchbar (ionChange)="onChange($event)" placeHolder="Rechercher un vin"></ion-searchbar>
+<ion-searchbar id="searchBar" (ionChange)="onChange($event)" [placeholder]="router.url === '/find-restaurant' ? 'Rechercher un restaurant' : 'Rechercher un vin'"></ion-searchbar>

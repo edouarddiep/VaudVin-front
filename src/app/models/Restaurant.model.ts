@@ -1,14 +1,19 @@
-import { Vin } from './Vin.model';
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 
 export class Restaurant {
-    id: number;
-    name: string;
-    type: string;
-    address_1: string;
-    address_2: string;
-    address_3: string;
-    zip_code: string;
-    city: string;
-    country: string;
-    phone_number: string;
+    res_id: number;
+    res_name: string;
+    res_type: string;
+    res_address_1: string;
+    res_address_2: string;
+    res_address_3: string;
+    res_zip_code: string;
+    res_city: string;
+    res_country: string;
+    res_phone_number: string;
 }

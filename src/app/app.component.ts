@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -29,11 +35,6 @@ export class AppComponent {
       title: 'Consulter son historique',
       url: '/historical',
       icon: 'list'
-    },
-    {
-      title: 'Tester la carte',
-      url: '/test-map',
-      icon: 'map'
     },
     {
       title: 'Se déconnecter',

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>    
+  <ion-toolbar>
     <ion-title class="wine-title">
       Fiche du vin
     </ion-title>
@@ -8,48 +8,36 @@
 <ion-content overflow-scroll="true">
   <div class="wine-card">
     <div class="vin-info">
-      <ion-item class="item-info" lines="none">
-        <h3 class="vin-title">{{vin?.name}}</h3>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Provenance : {{vin?.region}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Producteur : {{vin?.producer}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Cépage : {{vin?.grape_variety}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Millésime : {{vintage?.year}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Type : {{vin?.category}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Style : {{vin?.style}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <span>Accords mets-vins : {{vin?.served_with}}</span>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Taux de sucre : {{vin?.sugar_level}}g</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Degré d'alcool : {{vin?.total_acidity}}g/l</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Degré d'alcool : {{vin?.alcohol_level}}%</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Est bio : {{isBio}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Est boisé : {{isWoody}}</ion-label>
-      </ion-item>
-      <ion-item class="item-info" lines="none">
-        <ion-label>Capacité : {{vin?.capacity | number: '1.0-0'}}dl</ion-label>
-      </ion-item>
+      <ion-card class="card">
+        <ion-item class="item-info" lines="none">
+          <h3 class="vin-title">{{vin?.win_name}}</h3>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Provenance : {{vin?.win_region}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Producteur : {{vin?.win_producer}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Cépage : {{vin?.win_grape_variety}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Millésime : {{vintage?.vin_year}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Type : {{vin?.win_category}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Style : {{vin?.win_style}}</h4>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <ion-label class="label-info">Bio : {{isBio}}</ion-label>
+          <ion-label class="label-info">Boisé : {{isWoody}}</ion-label>
+        </ion-item>
+        <ion-item class="item-info" lines="none">
+          <h4>Contenance : {{vin?.win_capacity | number: '1.0-0'}}dl</h4>
+        </ion-item>
+      </ion-card>
     </div>
     <span> Comment avez-vous trouvé ce vin ?</span>
     <div id="like" class="rating" *ngIf="!isRated">
@@ -102,13 +90,35 @@
         <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart1"></ion-icon>
         <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart2"></ion-icon>
         <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart3"></ion-icon>
-        <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart4"></ion-icon> 
+        <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart4"></ion-icon>
         <ion-icon name="heart" class="heart" (click)="changeIcon($event)" id="heart5"></ion-icon>
       </ng-container>
     </div>
+    <div *ngIf="!isCommented">
+      <form [formGroup]="commentForm">
+        <ion-item class="comment-item" lines="none">
+          <ion-textarea class="comment-ta" placeholder="(Facultatif) Laissez un commentaire" maxlength="100"
+            [(ngModel)]="commentValue" (ionChange)="textChange()" formControlName="comment"
+            [ngClass]="{ 'is-invalid': (submitted && isCommented) && registerForm.get('comment')?.errors }">
+          </ion-textarea>
+          <div *ngIf="submitted && registerForm.get('comment')?.errors" class="invalid-feedback">
+            <div *ngIf="registerForm.get('comment')?.hasError('pattern')">Le commentaire n'est pas pertinent !</div>
+          </div>
+        </ion-item>
+      </form>
+      <div class="letter-counts">{{textCount}}/100</div>
+    </div>
+    <div *ngIf="isCommented">
+      <ion-item class="comment-item" lines="none">
+        <h4 text-left>Votre commentaire sur ce vin :<div class="comment-container">
+            <span class="comment-value">"{{commentValue}}"</span>
+          </div>
+        </h4>
+      </ion-item>
+    </div>
     <div class="btn-rating">
-      <ion-button color="medium" size="medium" (click)="navigatePage()">Annuler</ion-button>
-      <ion-button color="primary" size="medium" (click)="saveRate()">Enregistrer la note</ion-button>
+      <ion-button color="medium" size="medium" (click)="cancel()">Annuler</ion-button>
+      <ion-button color="primary" size="medium" (click)="saveRate()">Enregistrer l'avis</ion-button>
     </div>
   </div>
 </ion-content>

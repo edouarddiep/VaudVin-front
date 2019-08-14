@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Injectable } from '@angular/core';
 import { Restaurant } from '../models/Restaurant.model';
 import { Observable, of, BehaviorSubject } from 'rxjs';
@@ -28,21 +34,7 @@ export class RestaurantService {
     return this.http.get<Array<Restaurant>>(URL.domaine + URL.restaurant.verb);
   }
 
-  /*
-  getRestaurantsByName(content: string): Observable<Array<Restaurant>> {
-    this.restaurantsFiltres = new Array<Restaurant>();
-    this.listeRestaurants.forEach(r => {
-      const nom = r.nom.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const type = r.type.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const contentNormalized = content.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      if(nom.toLocaleUpperCase().includes(contentNormalized.toLocaleUpperCase())
-      || type.toLocaleUpperCase().includes(contentNormalized.toLocaleUpperCase())) {
-        this.restaurantsFiltres.push(r);
-      }
-    });
-    return of(this.restaurantsFiltres);
-  }
-*/
+
   pushNextArrayRestaurants(restaurants: Array<Restaurant>) {
     this.restaurants$.next(restaurants);
   }
@@ -55,7 +47,15 @@ export class RestaurantService {
     return of(this.restaurant);
   }
 
-  pushNextRestaurant() {
-    this.restaurant$.next(this.restaurant);
+  getRestaurantDetail() {
+    return this.restaurant$.asObservable();
+  }
+
+  pushNextRestaurant(r: Restaurant) {
+    this.restaurant$.next(r);
+  }
+
+  getFilterResults() {
+    return this.restaurants$.asObservable();
   }
 }

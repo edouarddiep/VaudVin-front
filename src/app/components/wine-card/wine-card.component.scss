@@ -6,6 +6,7 @@
         padding-top: 10px;
         padding-bottom:10px;
         font-size: calc(11px + .5vw);
+        width:100%;
         .vin-title{
             font-weight: bold;
             white-space:pre-wrap;
@@ -14,8 +15,18 @@
             overflow: visible;
             color: #df4b68;
         }
+        .label-recommended{
+            text-align: right !important;
+            font-size: 1.2em;
+
+            .moyenne-mill{
+                color: #df4b68;
+            }
+        }
     }
 }
+
+
 
 .rating{
     margin-left:-3px;

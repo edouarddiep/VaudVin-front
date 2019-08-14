@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
@@ -28,23 +34,21 @@ const routes: Routes = [
     loadChildren: './pages/historical/historical.module#HistoricalPageModule'
   },
   {
-    path: 'wine-detail',
+    path: 'wines/:id/vintages/:id/detail',
     loadChildren: './pages/wine-detail/wine-detail.module#WineDetailPageModule'
   },
   {
     path: 'find-restaurant',
     loadChildren: './pages/find-restaurant/find-restaurant.module#FindRestaurantPageModule'
   },
-  { 
-    path: 'choose-vintage',
+  {
+    path: 'wines/:id/choose-vintage',
     loadChildren: './pages/choose-vintage/choose-vintage.module#ChooseVintagePageModule'
   },
-  { 
-    path: 'test-map',
-    loadChildren: './pages/test-map/test-map.module#TestMapPageModule'
-  },
-  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+  { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule' },
+  { path: 'restaurant-card/:id', loadChildren: './pages/restaurant-card/restaurant-card.module#RestaurantCardPageModule' },
 
 
 
@@ -56,4 +60,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

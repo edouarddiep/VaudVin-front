@@ -1,0 +1,78 @@
+{
+  "name": "cordova-sqlite-storage",
+  "version": "3.2.1",
+  "description": "Native interface to SQLite for PhoneGap/Cordova - cordova-sqlite-storage plugin version",
+  "cordova": {
+    "id": "cordova-sqlite-storage",
+    "platforms": [
+      "android",
+      "ios",
+      "osx",
+      "windows"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpbrew/cordova-sqlite-storage.git"
+  },
+  "keywords": [
+    "sqlite",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-osx",
+    "cordova-windows"
+  ],
+  "author": {
+    "name": "various"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xpbrew/cordova-sqlite-storage/issues"
+  },
+  "homepage": "https://github.com/xpbrew/cordova-sqlite-storage",
+  "dependencies": {
+    "cordova-sqlite-storage-dependencies": "2.0.1"
+  },
+  "scripts": {
+    "clean-spec": "rm -rf spec/[mnp]* && git cl spec/config.xml && git status --ignored",
+    "prepare-js": "coffee -p SQLitePlugin.coffee.md > www/SQLitePlugin.js",
+    "prepare-spec": "node scripts/prepareSpec.js"
+  },
+  "devDependencies": {
+    "coffeescript": "1",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^8.1.0"
+  },
+  "gitHead": "1639aa35d546a16be3a7afbe00b1c2f456c612f3",
+  "_id": "cordova-sqlite-storage@3.2.1",
+  "_nodeVersion": "10.16.0",
+  "_npmVersion": "6.9.0",
+  "dist": {
+    "integrity": "sha512-UC27DdyB/nji8o3mLEPoyo2hkZBtfVdT8CJVw9a6B/S9SbeqmkcwFFxUXxv62JgLgXHzNn0gg3ZtzxVGaY909g==",
+    "shasum": "1bb2fc283ee3d01d65e6d91283c122b058789383",
+    "tarball": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-3.2.1.tgz",
+    "fileCount": 64,
+    "unpackedSize": 1287554,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdGTjkCRA9TVsSAnZWagAAztQP/0glEngvbH6tlugto64S\n2ZF01fQBXBUcjAHHTFllW/PT6F1xzkJCMvF+8PXkqKjHh+aUQ6w75TiiXxD4\nep4LNQBEWx6bb2+ZYwosNlvwHUYWCkAmMSVcMv886+A1IUdpMzyrQQ7HB9/W\nodcoNRS1Xi3leG0W6/JGsOdgK7yYfGYkUfACABUzFEJspeXnF2rMg6i2oMDT\nkJPjnqL6qixqbombBZHBOw55hbK0mQngVQEcLI5V0SBV41v7pO7nEDrfndhs\n2m7Fmyke+AXh03jvIObNHi0ii7EIbecjU6TnrtQ9Vmd1O/0xnCtO34tGzctq\nJp23Q6C1khe7r5WLCvS9Ud6/Z2wJmuYyLCBrvR4OSUAqRUA0pn4jwFKfYphK\nuCtFDQfIhv48gEognbM5IeDUVbZbwqAOcZQ0qhCW1/zZ3gZbnaLn5gfLvJzW\nRQ3NFXjGBUOcbgjggGbL8RYYzDLb2NcqOfBm+T1aO9zu5yHiTOBYajRxiVeM\nBkN5Jz3KZrA7iTdQIbwkwV0VrmaCmm2AOr6utEqhO4kHqKpNs4tOUbkXx63E\njQITQ2PF5nkzC4USnv2IZX5rbJMOU7VkVqvRtI2vbG04uIsbqkVyJ0XBaQO8\nMkiBtvlW5S7wcWQgvziCXI5sEo5W++ICYx1WS1MjB7wYTmB8w3OyCpL7qVpX\nVqgv\r\n=y2o5\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "maintainers": [
+    {
+      "name": "brodybits",
+      "email": "brodybits@litehelpers.net"
+    }
+  ],
+  "_npmUser": {
+    "name": "brodybits",
+    "email": "chris@brody.consulting"
+  },
+  "directories": {},
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-sqlite-storage_3.2.1_1561934051406_0.2064761417398211"
+  },
+  "_hasShrinkwrap": false,
+  "_shasum": "1bb2fc283ee3d01d65e6d91283c122b058789383",
+  "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-3.2.1.tgz",
+  "_from": "cordova-sqlite-storage@latest"
+}

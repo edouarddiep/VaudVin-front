@@ -1,3 +1,9 @@
+// tslint:disable: max-line-length
+/**
+ * 
+ * 
+ * @author Edouard Diep
+ */
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { HttpClient } from '@angular/common/http';
