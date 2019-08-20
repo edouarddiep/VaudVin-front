@@ -1,60 +1,64 @@
-.img-toolbar{
-    width:100px;
-    height:50px;
-  }
-  
-  .blurred-bg-container{
-    background: url("../../../assets/images/background_closeup_verre.jpg");
-    height:100vh;
-    background-size:cover;
-    background-position: top;
-    .content{
-      background:inherit;
-      width:70%; // =cw
-      height:60%; // =ch
-      border-radius: 8px;
-      box-shadow: 0 0 32px rgba(0,0,0,0.5);
+
+.blurred-bg-container {
+  background: url("../../../assets/images/background_closeup_verre.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-position: top;
+
+  .content {
+    background: inherit;
+    width: 70%; // =cw
+    height: 60%; // =ch
+    border-radius: 8px;
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%; // =ct
+    left: 40%; // =cl
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    .text {
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.3);
+      height: 100%;
+      box-sizing: border-box; // so that padding is included in height
+
+    }
+
+    .blur {
+      background: inherit;
+      height: 100vh; // =h
+      width: 166.667%; // (100/cw) x 100%
       position: absolute;
-      top:50%; // =ct
-      left:40%; // =cl
-      transform:translate(-50%,-50%);
-      overflow: hidden;
-
-      .text{
-        padding: 16px;
-        background: rgba(255,255,255,0.3);
-        height:100%;
-        box-sizing:border-box; // so that padding is included in height
-
-      }
-      .blur{
-        background:inherit;
-        height:100vh; // =h
-        width:166.667%; // (100/cw) x 100%
-        position: absolute;
-        left:0;
-        top:0;
-        transform: translate(-10%,-30%); // (100/cl) x (100-cw)  %, (100/ct) x (100-ch) %
-        filter:blur(15px);
-        z-index: -1;
-      }
+      left: 0;
+      top: 0;
+      transform: translate(-10%, -30%); // (100/cl) x (100-cw)  %, (100/ct) x (100-ch) %
+      filter: blur(15px);
+      z-index: -1;
     }
   }
+}
 
-  .home-label{
-      text-align: justify;
-      text-justify: distribute;
-      text-align-last: center;
-      text-shadow: 0.8px 0 0 beige, -0.8px 0 0 beige, 0 0.8px 0 beige, 0 -0.8px 0 beige, 0.8px 0.8px beige, -0.8px -0.8px 0 beige, 0.8px -0.8px 0 beige, -0.8px 0.8px 0 beige;
+.home-label {
+  text-align: justify;
+  text-justify: distribute;
+  text-align-last: center;
+  color: #f1046f;
+  //text-shadow: 2px 0 0 beige, -2px 0 0 beige, 0 2px 0 beige, 0 -2px 0 beige, 2px 2px beige, -2px -2px 0 beige, 2px -2px 0 beige, -2px 2px 0 beige;
 
-      font-size:1.1em;
-      z-index: 700;
-      .home-icon{
-        padding-top:25px;
-        margin:auto;
-        position: relative;
-        display: block;
-        width:60px;
-        height:60px;
-      } 
+  font-size: 1.1em;
+  z-index: 700;
+
+  .home-icon {
+    padding-top: 25px;
+    margin: auto;
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
   }
+}
+
+ion-content {
+  --overflow: hidden;
+}

@@ -65,7 +65,10 @@ export class WineDetailPage implements OnInit {
     this.setExistingRateAndComment();
   }
 
-  setExistingRateAndComment(){
+ /** Fonction qui set la note et le commentaire dans le cas où ils existent
+  * Sinon, mets la variable isRated à false et ne fait rien
+  */
+  private setExistingRateAndComment(){
     this.rs.getUserRatesByVintage(this.user_id, this.vintage.vin_id).subscribe(rates => {
       this.rates = rates;
       this.existingRates = rates.length;
@@ -85,7 +88,8 @@ export class WineDetailPage implements OnInit {
     });
   }
 
-  changeIcon(event) {
+  /** Fonction qui change le visuel des coeurs */
+  private changeIcon(event) {
     switch (event.target.id) {
       case 'heart1': {
         this.fillHeart(1);
@@ -110,7 +114,8 @@ export class WineDetailPage implements OnInit {
     }
   }
 
-  fillHeart(id: number) {
+  /** Fonction qui remplit les coeurs lors du clic sur l'icône */
+  private fillHeart(id: number) {
     for (let i = 1; i <= id; i++) {
       const currentHeart = document.getElementById('heart' + i);
       currentHeart.setAttribute('name', 'heart');
@@ -122,7 +127,8 @@ export class WineDetailPage implements OnInit {
     }
   }
 
-  async alertRateNull(){
+    /** Fonction qui envoie une alerte d'erreur */
+  private async alertRateNull(){
     const alert = await this.alert.create({
       header: 'Veuillez saisir une note !',
       buttons: ['OK']
@@ -131,7 +137,8 @@ export class WineDetailPage implements OnInit {
     await alert.present();
   }
 
-  async alertRateUpdatedOk(){
+    /** Fonction qui envoie une alerte de confirmation */
+  private async alertRateUpdatedOk(){
     const alert = await this.alert.create({
       header: 'L\'avis a bien été mise à jour !',
       buttons: [{
@@ -148,7 +155,8 @@ export class WineDetailPage implements OnInit {
     await alert.present();
   }
 
-  async alertRateSavedOk(){
+  /** Fonction qui envoie une alerte de confirmation */
+  private async alertRateSavedOk(){
     const alert = await this.alert.create({
       header: 'Merci d\'avoir évalué ce millésime !',
       buttons: [{
@@ -175,20 +183,22 @@ export class WineDetailPage implements OnInit {
     await alert.present();
   }
 
-
-  cancel() {
+  /** Fonction qui annule et renvoie l'utilisateur sur la sélection des vins */
+  private cancel() {
     this.router.navigate(['/list-wine'])
       .then(() => {
         window.location.reload();
       });
   }
 
-  textChange() {
+  /** Fonction qui met à jour le label du nombre de caractères (commentaire) */
+  private textChange() {
     console.log(this.commentValue);
     this.textCount = 100 - this.commentValue.length;
   }
 
-  saveRate() {
+  /** Fonction qui enregistre la note OU la met à jour si elle existe déjà dans la bdd */
+  private saveRate() {
     this.submitted = true;
     console.log('la note = ' + this.rateValue);
     if (this.rateValue === undefined) {

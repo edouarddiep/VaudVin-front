@@ -6,6 +6,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -17,9 +18,14 @@ export class LogoutPage implements OnInit {
   isLoading = false;
   cpt = 0;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private router: Router, private auth: AuthenticationService) { }
 
   ngOnInit() {
+    this.logout();
+  }
+
+  /** Fonction qui logout l'utilisateur et supprime le token actuel */
+  private logout() {
     this.isLoading = true;
     this.auth.logout();
     setTimeout(() => {

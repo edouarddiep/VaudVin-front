@@ -39,7 +39,8 @@ export class ListWinePage implements OnInit {
     }, 1000);
   }
 
-  getWines() {
+  /** Fonction qui récupère tous les vins de la bdd */
+  private getWines() {
     this.vs.getWines().subscribe(wines => {
       if (this.wines.length === 0) {
         this.isLoading = true;
@@ -49,7 +50,8 @@ export class ListWinePage implements OnInit {
     });
   }
 
-  getFilterResults() {
+  /** Fonction qui actualise les résultats de la recherche (app-searchbar) */
+  private getFilterResults() {
     this.vs.getFilterResults().subscribe(wines => {
       this.wines = wines;
     });

@@ -19,7 +19,7 @@ export interface UserDetails {
     password: string;
     exp: number;
     iat: number;
-    sub:number;
+    sub: number;
 }
 
 interface TokenResponse {
@@ -32,18 +32,20 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
+    /** Fonction qui set le token dans le stockage local */
     private saveToken(token: string): void {
         localStorage.setItem('userToken', token);
         this.token = token;
     }
 
+    /** Fonction qui récupère le token du stockage local */
     private getToken(): string {
         if (!this.token) {
             this.token = localStorage.getItem('userToken');
         }
         return this.token;
     }
-
+    /** Fonction qui récupère l'utilisateur connecté */
     private getUserDetail(): UserDetails {
         const token = this.getToken();
         let payload;
@@ -56,6 +58,7 @@ export class AuthenticationService {
         }
     }
 
+    /** Fonction qui récupère l'id de l'utilisateur connecté */
     public getUserId(): number {
         const token = this.getToken();
         let payload;
@@ -70,6 +73,7 @@ export class AuthenticationService {
         }
     }
 
+    /** Fonction qui indique si un utilisateur est connecté ou non */
     public isLoggedIn(): boolean {
         const user = this.getUserDetail();
         console.log('LE USER = ' + JSON.stringify(user));
@@ -80,6 +84,7 @@ export class AuthenticationService {
         }
     }
 
+    /** Fonction qui enregistre un nouvel utilisateur */
     public register(user: User): Observable<any> {
         console.log(user);
         return this.http.post(URL.domaine + URL.auth.verb + URL.auth.register, user, {
@@ -87,6 +92,7 @@ export class AuthenticationService {
         });
     }
 
+    /** Fonction qui login un utilisateur existant */
     public login(user: User): Observable<any> {
         const base = this.http.post(
             URL.domaine + URL.auth.verb + URL.auth.login,
@@ -105,20 +111,30 @@ export class AuthenticationService {
         return request;
     }
 
+    /** Fonction qui logout un utilisateur existant */
     public logout(): void {
         this.token = '';
-        window.localStorage.removeItem('userToken');
+        localStorage.removeItem('userToken');
         localStorage.removeItem('authenticatedUser');
         setTimeout(() => {
             this.router.navigateByUrl('/');
         }, 3000);
     }
 
-    public sendPasswordResetLink(email: string){
+    /** Fonction qui envoie un e-mail de réinitialisation de mot de passe */
+    public sendPasswordResetLink(email: string) {
         return this.http.post(
             URL.domaine + URL.auth.verb + URL.auth.reset,
-            { email: email },
-            { headers: { 'Content-Type': 'application/json' }
-        });
+            { email: email.toLocaleLowerCase() },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+    }
+
+    /** Fonction qui met à jour le mot de passe */
+    public changePassword(userData) {
+        return this.http.post(
+            URL.domaine + URL.auth.verb + URL.auth.changePassword, userData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
     }
 }

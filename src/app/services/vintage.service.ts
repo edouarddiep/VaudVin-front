@@ -17,6 +17,7 @@ export class VintageService {
 
   constructor(private http: HttpClient) { }
 
+  /** Fonction qui crée un millésime */
   public postVintage(vintage: Vintage): Observable<any> {
     console.log(vintage);
     return this.http.post(URL.domaine + URL.vintage.verb, vintage, {

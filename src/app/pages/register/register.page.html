@@ -18,7 +18,7 @@
                 </div>
               </ion-item>
               <ion-item class="form-group" responsive-sm>
-                <ion-input type="email" (ionFocus)="setDefault($event)" placeholder="Adresse e-mail" [(ngModel)]="credentials.email"
+                <ion-input type="email" placeholder="Adresse e-mail" [(ngModel)]="credentials.email"
                   formControlName="email" [ngClass]="{ 'is-invalid': submitted && registerForm.get('email')?.errors }">
                 </ion-input>
                 <div *ngIf="submitted && registerForm.get('email')?.errors" class="invalid-feedback">

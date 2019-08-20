@@ -46,7 +46,8 @@ export class HistoricalPage implements OnInit {
     }, 1000);
   }
 
-  getUserWines() {
+  /** Fonction qui récupère tous les vins notés par l'utilisateur courant */
+  private getUserWines() {
     this.rs.getUserRatesDistinct(this.user_id).subscribe(wines => {
       if (this.wines.length === 0) {
         this.isLoading = true;
@@ -60,7 +61,8 @@ export class HistoricalPage implements OnInit {
     });
   }
 
-  getFilterResults() {
+  /** Fonction qui actualise les résultats de la recherche (app-searchbar) */
+  private getFilterResults() {
     this.vs.getFilterResults().subscribe(wines => {
       this.wines = wines;
       this.redWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('rouge'));
@@ -69,8 +71,9 @@ export class HistoricalPage implements OnInit {
       this.mousseuxWines = this.wines.filter(w => w.win_category.toLocaleLowerCase().includes('champagne') || w.win_category.toLocaleLowerCase().includes('mousseux'));
     });
   }
-
-  toggleAccordion(event) {
+  
+  /** Fonction qui étend l'accordion lors du clic sur l'en-tête de la ion-card */
+  private toggleAccordion(event) {
     if (event.target.id === '') {
       this.accordionId = event.target.parentNode.id;
     } else {
@@ -98,12 +101,4 @@ export class HistoricalPage implements OnInit {
     }
     this.accordionExpanded = !this.accordionExpanded;
   }
-
-  setTransition(){
-    const list = document.getElementById('list');
-    setTimeout(() => {
-      list.style.setProperty('opacity', '1');
-    }, 300);
-  }
-
 }

@@ -33,17 +33,19 @@ export class ChooseVintagePage implements OnInit {
     }, 100);
   }
 
-  fillListYears(){
+  /** Fonction qui remplit la liste des années */
+  private fillListYears() {
     for (let i = 2019; i >= 1990; i--) {
       this.listYear.push(i.toString());
     }
   }
 
-  test(event){
-    console.log(event);
-  }
-
-  goToDetail(event) {
+    /** Fonction qui permet à l'utilisateur de naviguer vers le détail
+     * Elle s'assure que le millésime existe ou non
+     * Si le millésime existe, on récupère l'existant depuis la bdd
+     * Si le millésime n'existe pas, on l'instancie et on le crée pour le stocker dans la bdd
+    */
+  private goToDetail(event) {
     let selectedYear = parseInt(event);
     this.vs.getVinDetail().subscribe(vin => {
       this.vin = vin;
@@ -58,7 +60,7 @@ export class ChooseVintagePage implements OnInit {
           this.router.navigateByUrl('wines/' + vin.win_id + '/vintages/' + v.vin_id + '/detail');
           return;
         } else { // le millésime n'existe pas dans la base de données du coup on crée
-          if(selectedYear === null){
+          if (selectedYear === null) {
             return;
           } else {
             this.vintageService.postVintage(newVintage).subscribe(data => {

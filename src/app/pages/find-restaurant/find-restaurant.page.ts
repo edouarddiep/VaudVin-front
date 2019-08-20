@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Restaurant } from 'src/app/models/Restaurant.model';
 import { RestaurantService } from 'src/app/services/restaurant.service';
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController } from '@ionic/angular';
 import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
 declare var google: any;
@@ -68,6 +68,7 @@ export class FindRestaurantPage implements OnInit {
   requestCafes: any;
   requestBars: any;
   service: any;
+
   markers = new Array<any>();
   lstLocalisations = new Array<GeoLocationMarqueur>();
   icon = {
@@ -89,7 +90,8 @@ export class FindRestaurantPage implements OnInit {
     zoom: 14
   };
 
-  constructor(public mapsApiLoader: MapsAPILoader, private rs: RestaurantService, private router: Router, public platform: Platform) {
+
+  constructor(public mapsApiLoader: MapsAPILoader, private loadingCtrl: LoadingController, private rs: RestaurantService, private router: Router, public platform: Platform) {
     this.mapsApiLoader = mapsApiLoader;
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
@@ -101,30 +103,24 @@ export class FindRestaurantPage implements OnInit {
     console.log(infoWindow);
     this.isLoading = true;
     this.getRestaurants();
-    this.getFilterResults();
     setTimeout(() => {
       this.location.marker.draggable = false;
-      this.geoLocation();
+      this.setCurrentPosition();
       this.cpt = 1;
       this.isLoading = false;
     }, 500);
   }
 
-  getRestaurants() {
+  /** Fonction qui récupère tous les restaurants de la bdd */
+  private getRestaurants() {
     this.rs.getRestaurants().subscribe(restaurants => {
       this.restaurants = restaurants;
       this.updateOnMap();
     });
   }
 
-  getFilterResults() {
-    this.rs.getFilterResults().subscribe(restaurants => {
-      this.restaurants = restaurants;
-    });
-  }
-
-
-  geoLocation() {
+  /** FONCTION PERMETTANT DE PLACER LE MARQUEUR DE GEOLOCATION SUR L'API GOOGLE MAPS */
+  private setCurrentPosition() {
     console.log(navigator);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
@@ -143,7 +139,8 @@ export class FindRestaurantPage implements OnInit {
     }
   }
 
-  updateOnMap() {
+  /** FONCTION PERMETTANT DE PLACER LES MARQUEURS DES RESTAURANTS SUR L'API GOOGLE MAPS */
+  private updateOnMap() {
     this.restaurants.forEach(r => {
       this.location.addresse = r.res_address_1;
       this.location.ville = r.res_city;
@@ -155,7 +152,8 @@ export class FindRestaurantPage implements OnInit {
     });
   }
 
-  findLocation(address, r: Restaurant) {
+  /** FONCTION PERMETTANT DE RETROUVER LES RESTAURANTS DE LA BDD SUR L'API GOOGLE MAPS */
+  private findLocation(address, r: Restaurant) {
     if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
     this.geocoder.geocode({
       'address': address
@@ -194,16 +192,11 @@ export class FindRestaurantPage implements OnInit {
     });
   }
 
-  public openIW(data){
-    console.log(data.infoWindowClose);
-    if(data.isOpen()){
-    data.close();
-    }
-  }
-
-
-  goToWineCard(r: Restaurant) { // A IMPLEMENTER AVEC LA CARTE FONCTIONNELLE !!!
+  /** Fonction qui navigue vers la carte des vins du restaurant sélectionné */
+  goToWineCard(r: Restaurant) {
     this.rs.pushNextRestaurant(r);
     this.router.navigateByUrl('restaurant-card/' + r.res_id);
   }
+
+
 }

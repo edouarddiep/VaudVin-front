@@ -35,7 +35,8 @@ export class SearchbarComponent implements OnInit {
     this.user_id = this.auth.getUserId();
   }
 
-  searchWines(vins: Array<Vin>){
+  /** Fonction qui gère la recherche de vins */
+  private searchWines(vins: Array<Vin>) {
     const filteredList = new Array<Vin>();
     this.vins = vins;
     this.vins.forEach(v => {
@@ -55,7 +56,8 @@ export class SearchbarComponent implements OnInit {
     this.vs.pushNextVinArray(filteredList);
   }
 
-  searchRestaurants(res: Array<Restaurant>){
+  /** Fonction qui gère la recherche de restaurants */
+  private searchRestaurants(res: Array<Restaurant>) {
     const filteredList = new Array<Restaurant>();
     this.restaurants = res;
     this.restaurants.forEach(r => {
@@ -65,7 +67,7 @@ export class SearchbarComponent implements OnInit {
       const zip_code = r.res_zip_code.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       const address = r.res_address_1.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       const contentNormalized = this.searched.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      if(nom.includes(contentNormalized) || type.includes(contentNormalized)
+      if (nom.includes(contentNormalized) || type.includes(contentNormalized)
         || country.includes(contentNormalized) || zip_code.includes(contentNormalized)
         || address.includes(contentNormalized)) {
         filteredList.push(r);
@@ -74,25 +76,26 @@ export class SearchbarComponent implements OnInit {
     this.rs.pushNextArrayRestaurants(filteredList);
   }
 
+  /** Listener onChange placé sur l'input qui gère les appels aux différentes méthodes (searchWines ou searchRestaurants) */
   onChange(event) {
     this.searched = event.detail.value.toLocaleLowerCase();
     console.log(this.searched);
-    if(this.router.url === '/list-wine'){
+    if (this.router.url === '/list-wine') {
       this.vs.getWines().subscribe(vins => {
         this.searchWines(vins);
       });
-    } else if(this.router.url === '/historical') {
+    } else if (this.router.url === '/historical') {
       this.ratingService.getUserRatesDistinct(this.user_id).subscribe(vins => {
         this.searchWines(vins);
       });
-    } else if(this.router.url.includes('/restaurant-card/')){
+    } else if (this.router.url.includes('/restaurant-card/')) {
       this.rs.getRestaurantDetail().subscribe(restaurant => {
         this.restaurant = restaurant;
         this.vs.getRestaurantWines(this.restaurant.res_id).subscribe(vins => {
           this.searchWines(vins);
         });
       });
-    } else if(this.router.url === '/find-restaurant'){
+    } else if (this.router.url === '/find-restaurant') {
       this.rs.getRestaurants().subscribe(restaurants => {
         this.searchRestaurants(restaurants);
       });

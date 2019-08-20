@@ -23,7 +23,7 @@ const routes: Routes = [
     ComponentsModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCeRuufysM9JnUKkN5FXkd4vxDBIwHCV2Q'
+      apiKey: 'AIzaSyCeRuufysM9JnUKkN5FXkd4vxDBIwHCV2Q',
     })
   ],
   declarations: [FindRestaurantPage],

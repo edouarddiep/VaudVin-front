@@ -11,6 +11,7 @@ export class Rate {
     fk_rat_vin_id: number;
     fk_rat_user_id: number;
 
+    /** Fonction statique permettant d'instancier un Rate */
     static createRate(value: number, comment: string, vint_id, user_id): Rate {
         const rate = new Rate();
         rate.rat_value = value;

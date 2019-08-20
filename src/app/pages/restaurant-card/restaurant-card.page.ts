@@ -41,7 +41,8 @@ export class RestaurantCardPage implements OnInit {
     }, 1000);
   }
 
-  getRestaurantWines(){
+  /** Fonction qui récupère tous les vins en fonction du restaurant sélectionné (=carte des vins du restaurant) */
+  getRestaurantWines() {
     this.rs.getRestaurantDetail().subscribe(restaurant => {
       this.restaurant = restaurant;
       console.log(this.restaurant);
@@ -59,6 +60,7 @@ export class RestaurantCardPage implements OnInit {
     });
   }
 
+  /** Fonction qui actualise les résultats de la recherche (app-searchbar) */
   getFilterResults() {
     this.vs.getFilterResults().subscribe(wines => {
       this.wines = wines;
@@ -69,6 +71,7 @@ export class RestaurantCardPage implements OnInit {
     });
   }
 
+  /** Fonction qui étend l'accordion lors du clic sur l'en-tête de la ion-card */
   toggleAccordion(event) {
     if (event.target.id === '') {
       this.accordionId = event.target.parentNode.id;

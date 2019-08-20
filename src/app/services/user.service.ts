@@ -16,15 +16,16 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  // A COMPLETER DANS UNE VERSION FUTURE AVEC LA BDD
   constructor(private auth: AuthenticationService, private http: HttpClient) { }
 
 
-  public getAuthenticatedUser(id: number): Observable<User> {
+  /** Fonction qui récupère un utilisateur précis */
+  public getUser(id: number): Observable<User> {
     return this.http.get<User>(URL.domaine + URL.user.verb + id);
   }
 
-  public getUsers(): Observable<Array<User>>{
+  /** Fonction qui récupère tous les utilisateurs */
+  public getUsers(): Observable<Array<User>> {
     return this.http.get<Array<User>>(URL.domaine + URL.user.verb);
   }
 }

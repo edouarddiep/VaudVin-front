@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "browser": "ionic-app-scripts serve --sourceMap source-map --iscordovaserve --wwwDir platforms/browser/www/ --buildDir platforms/browser/www/build"
   },
   "private": true,
   "dependencies": {
@@ -19,12 +20,12 @@
     "@angular/cdk": "^8.1.2",
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.1.2",
-    "@angular/forms": "^8.2.0",
+    "@angular/forms": "^8.2.2",
     "@angular/http": "^7.2.14",
     "@angular/material": "^8.1.2",
-    "@angular/platform-browser": "^8.1.2",
-    "@angular/platform-browser-dynamic": "^8.1.2",
-    "@angular/router": "^8.2.0",
+    "@angular/platform-browser": "^8.2.0",
+    "@angular/platform-browser-dynamic": "^8.2.0",
+    "@angular/router": "^8.2.2",
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
@@ -32,9 +33,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@ionic-native/core": "^5.5.1",
     "@ionic-native/geolocation": "^4.0.2",
+    "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/splash-screen": "^5.5.1",
     "@ionic-native/status-bar": "^5.5.1",
-    "@ionic/angular": "^4.6.2",
+    "@ionic/angular": "^4.7.4",
     "@ionic/lab": "^2.0.7",
     "@types/jquery": "^3.3.30",
     "@types/jwt-decode": "^2.2.1",
@@ -80,7 +82,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~8.0.0",
     "tslint": "~5.12.0",
-    "typescript": "~3.4.5"
+    "typescript": "~3.4.5",
+    "cordova-plugin-geolocation": "^5.12.0"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -93,10 +96,14 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To track restaurants"
+      }
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

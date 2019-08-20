@@ -37,6 +37,11 @@ export class AppComponent {
       icon: 'list'
     },
     {
+      title: 'Aide',
+      url: '/help',
+      icon: 'help-circle-outline'
+    },
+    {
       title: 'Se déconnecter',
       url: '/logout',
       icon: 'exit'

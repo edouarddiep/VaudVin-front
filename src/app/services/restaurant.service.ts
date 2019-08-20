@@ -28,34 +28,40 @@ export class RestaurantService {
   restaurantsFiltres = new Array<Restaurant>();
 
 
-  constructor(private http : HttpClient, private vinService: VinService) { }
+  constructor(private http: HttpClient, private vinService: VinService) { }
 
-  getRestaurants(): Observable<Array<Restaurant>> {
+  /** Fonction qui récupère tous les restaurants de la bdd */
+  public getRestaurants(): Observable<Array<Restaurant>> {
     return this.http.get<Array<Restaurant>>(URL.domaine + URL.restaurant.verb);
   }
 
-
-  pushNextArrayRestaurants(restaurants: Array<Restaurant>) {
+  /** Fonction qui met à jour le BehaviorSubject */
+  public pushNextArrayRestaurants(restaurants: Array<Restaurant>) {
     this.restaurants$.next(restaurants);
   }
 
-  setRestaurant(r: Restaurant) {
+  /** Fonction qui set le restaurant */
+  public setRestaurant(r: Restaurant) {
     this.restaurant = r;
   }
 
-  getRestaurant(): Observable<Restaurant> {
+  /** Fonction qui récupère le restaurant */
+  public getRestaurant(): Observable<Restaurant> {
     return of(this.restaurant);
   }
 
-  getRestaurantDetail() {
+  /** Fonction qui retourne le BehaviorSubject en tant qu'Observable */
+  public getRestaurantDetail() {
     return this.restaurant$.asObservable();
   }
 
-  pushNextRestaurant(r: Restaurant) {
+  /** Fonction qui met à jour le BehaviorSubject */
+  public pushNextRestaurant(r: Restaurant) {
     this.restaurant$.next(r);
   }
 
-  getFilterResults() {
+  /** Fonction qui retourne le BehaviorSubject en tant qu'Observable */
+  public getFilterResults() {
     return this.restaurants$.asObservable();
   }
 }

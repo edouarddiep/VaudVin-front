@@ -49,6 +49,10 @@ const routes: Routes = [
   { path: 'reset-password', loadChildren: './pages/reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule' },
   { path: 'restaurant-card/:id', loadChildren: './pages/restaurant-card/restaurant-card.module#RestaurantCardPageModule' },
+  { path: 'reset-password-form', loadChildren: './pages/reset-password-form/reset-password-form.module#ResetPasswordFormPageModule' },  { path: 'help', loadChildren: './pages/help/help.module#HelpPageModule' },
+
+
+
 
 
 

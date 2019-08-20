@@ -45,20 +45,25 @@ export class HomePage implements OnInit {
   constructor(private alert: AlertController, private router: Router, private us: UserService, private rs: RatingService, private auth: AuthenticationService) { }
 
   ngOnInit() {
+    this.getAuthenticatedUser();
+    this.getRatesByUsers();
+    this.getRatesOfAuthenticatedUser();
+  }
+
+  /** FONCTION QUI RÉCUPÈRE L'UTILISATEUR COURANT ET AFFICHE SON NOM SUR L'ACCUEIL */
+  private getAuthenticatedUser() {
     this.user_id = this.auth.getUserId();
-    this.us.getAuthenticatedUser(this.user_id).subscribe(user => {
+    this.us.getUser(this.user_id).subscribe(user => {
       this.user = user;
       localStorage.setItem('authenticatedUser', JSON.stringify(this.user));
       this.name = this.user[0].name.split(' ')[0]; // ne récupère que le prénom de l'utilisateur connecté
     });
-    this.getRatesByUsers();
-    this.getRatesOfAuthenticatedUser();
   }
 
 
 
   /** FONCTION QUI RÉCUPÈRE ET STOCKE LES NOTES DE L'UTILISATEUR CONNECTÉ */
-  getRatesOfAuthenticatedUser() {
+  private getRatesOfAuthenticatedUser() {
     this.rs.getUserRates(this.user_id).subscribe(rates => {
       localStorage.setItem('authenticatedUserRates', JSON.stringify(rates));
     });
@@ -66,24 +71,25 @@ export class HomePage implements OnInit {
 
   /** FONCTION QUI RÉCUPÈRE LES NOTES DES UTILISATEURS EXCLUANT CELUI CONNECTÉ */
   // tslint:disable: max-line-length
-  getRatesByUsers() {
+  private getRatesByUsers() {
     const authenticatedUserRates = JSON.parse(localStorage.getItem('authenticatedUserRates'));
     console.log('===============les notes du user logged in===============');
     console.log(authenticatedUserRates);
     this.us.getUsers().subscribe(users => {
       const filteredUsers = users.filter(u => u.id !== this.user_id); // je crée une nouvelle structure avec tous les users sauf celui connecté
+      localStorage.setItem('otherUsers', JSON.stringify(filteredUsers));
       filteredUsers.forEach(user => {
         this.rs.getUserRates(user.id).subscribe(rates => {
-          console.log('===============les notes des autres users===============');
           authenticatedUserRates.forEach(currentUserRate => {
             rates.forEach(otherRate => {
-              if (currentUserRate.fk_rat_vin_id === otherRate.fk_rat_vin_id) {
+              if (currentUserRate.fk_rat_vin_id === otherRate.fk_rat_vin_id) { // je compare les millésimes communs (entre l'utilisateur connecté et les autres)
+                console.log('===============Comparaison avec les notes des autres users===============');
                 this.correspondanceVin = currentUserRate.rat_value - otherRate.rat_value; // on calcule la différence des notes pour connaître le nombre de notes "similaire" (soit + ou - 1 d'écart)
-                this.nbVinsCommuns++; // le nombre de millésimes notés en communs entre l'utilisateur connecté et les autres
+                this.nbVinsCommuns++; // incrémente le nombre de millésimes notés en communs entre l'utilisateur connecté et les autres
                 this.currentCorresp.push(currentUserRate);
                 this.otherCorresp.push(otherRate);
                 if (this.correspondanceVin >= -1 && this.correspondanceVin <= 1) {
-                  this.nbNotesSim++; // on incrémente le nombre de notes avec + ou - 1 d'écart
+                  this.nbNotesSim++; // incrémente le nombre de notes avec + ou - 1 d'écart
                 }
                 this.coef = this.nbNotesSim / this.nbVinsCommuns; // Nb de vin évalué avec + ou - 1 point d'écart / Nb de vin évalué en commun
                 this.ratio += this.coef;
@@ -91,17 +97,16 @@ export class HomePage implements OnInit {
                 console.log(currentUserRate);
                 console.log(otherRate);
                 console.log('la correspondance = ' + this.correspondanceVin);
-                console.log('notes similaires = '+this.nbNotesSim);
-                console.log('notes vins communs = '+this.nbVinsCommuns);
-                console.log('Le coef = '+this.coef);
-                console.log('Le ratio = '+this.ratio);
+                console.log('notes similaires = ' + this.nbNotesSim);
+                console.log('notes vins communs = ' + this.nbVinsCommuns);
+                console.log('Le coef = ' + this.coef);
+                console.log('Le ratio = ' + this.ratio);
                 this.lstRatios.push(this.ratio); // on remplit la liste des ratios
                 console.log('La note = ' + otherRate.rat_value.toString());
-                console.log('Note utilisateur pondérée = '+this.noteUtilisateurPondere);
+                console.log('Note utilisateur pondérée = ' + this.noteUtilisateurPondere);
                 this.lstNotesPonderees.push(this.noteUtilisateurPondere); // on remplit la liste des notes pondérées
               } else {
                 this.correspondanceVin = 0; // afin d'éviter de diviser par 0, s'il n'y a pas de vin en commun alors renvoyer 0 dans la table
-                this.nbNotesSim = 0;
                 this.otherRates.push(otherRate); // les notes des autres users qui ne sont pas en commun avec celles du user courant
               }
             });
@@ -109,7 +114,7 @@ export class HomePage implements OnInit {
         });
       });
     });
-    setTimeout(() => {      
+    setTimeout(() => {
       console.log(this.lstRatios);
       console.log(this.lstNotesPonderees);
       console.log('le nb de notes communes = ' + this.nbVinsCommuns);

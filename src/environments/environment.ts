@@ -30,6 +30,7 @@ export const URL = {
     login: 'login',
     register: 'register',
     reset: 'sendPasswordResetLink',
+    changePassword: 'resetPassword'
   },
   wine: {
     verb: '/wines/',

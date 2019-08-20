@@ -1,13 +1,5 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Accueil
-    </ion-title>
-    <ion-img src="/assets/icon/vaudvin_logo.png" class="img-toolbar" slot="end"></ion-img>
-  </ion-toolbar>
+    <app-toolbar></app-toolbar>
 </ion-header>
 <ion-content>
   <div class="blurred-bg-container">
@@ -20,8 +12,5 @@
       </div>
       <div class="blur"></div>
     </div>
-  </div>
-  <div>
-    <ion-button (click)="presentAlert()">Basic Alert</ion-button>
   </div>
 </ion-content>

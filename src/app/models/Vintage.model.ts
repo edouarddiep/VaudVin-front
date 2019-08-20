@@ -9,6 +9,7 @@ export class Vintage {
     vin_year: number;
     fk_vin_win_id: number;
 
+      /** Fonction static permettant d'instancier un Vintage */
     static createVintage(year: number, wine_id: number): Vintage {
         const vintage = new Vintage();
         vintage.vin_year =  year;

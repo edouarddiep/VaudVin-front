@@ -31,9 +31,15 @@ export class RegisterPage implements OnInit {
     password: '',
   }
 
-  constructor(private alert: AlertController, private auth: AuthenticationService, private formBuilder: FormBuilder, private router: Router,  private snackBar: MatSnackBar) { }
+  constructor(private alert: AlertController, private auth: AuthenticationService, private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.setValidators();
+    this.isReady = true;
+  }
+
+  /** Fonction qui set les validators sur le formGroup */
+  private setValidators() {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$')]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')]],
@@ -42,22 +48,10 @@ export class RegisterPage implements OnInit {
     }, {
         validator: this.MustMatch('password', 'password_confirm')
       });
-      this.isReady = true;
   }
 
-  async alertEmail(){
-    const email = document.getElementById('email');
-    email.style.setProperty('color', 'red')
-    const alert = await this.alert.create({
-      header: 'Cet e-mail est déjà utilisé !',
-      message: 'Veuillez corriger le champ correspondant.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-  MustMatch(controlName: string, matchingControlName: string) {
+  /** Fonction qui compare password et password_confirm afin de traiter le formValidator */
+  private MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
@@ -72,30 +66,45 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  setDefault(event){
-   console.log(event);
+
+  /** Fonction qui affiche une fenêtre alerte */
+  private async alertCreated() {
+    const alert = await this.alert.create({
+      header: 'Votre compte a bien été créé !',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
-  register(){
-      this.submitted = true;
-      const email = document.getElementById('email');
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-        return;
-      }
+  /** Fonction qui affiche une fenêtre alerte */
+  private async alertEmail() {
+    const alert = await this.alert.create({
+      header: 'Cet e-mail est déjà utilisé !',
+      message: 'Veuillez corriger le champ correspondant.',
+      buttons: ['OK']
+    });
 
-      this.auth.register(this.credentials).subscribe(() => {
+    await alert.present();
+  }
+
+
+  /** Fonction qui enregistre l'utilisateur sur l'application */
+  private register() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    this.auth.register(this.credentials).subscribe(() => {
+      this.alertCreated();
+      setTimeout(() => {
         this.router.navigateByUrl('/login');
-        this.snackBar.open('Votre compte a bien été créé !', 'Fermer', {
-          duration: 3000,
-          // here specify the position
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center'
-        });
-      },
+      }, 1000);
+    },
       err => {
-        console.log('L\'ERREUR = '+JSON.stringify(err));
-        if(err.status === 400){
+        console.log('L\'ERREUR = ' + JSON.stringify(err));
+        if (err.status === 400) {
           this.alertEmail();
           return;
         }
@@ -103,7 +112,7 @@ export class RegisterPage implements OnInit {
     );
   }
 
-  goToLogin(){
+  private goToLogin() {
     this.router.navigateByUrl('/login');
   }
 }

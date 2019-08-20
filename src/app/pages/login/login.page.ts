@@ -11,13 +11,14 @@ import { User } from 'src/app/models/User.model';
 import { ToastComponent } from 'ng-snotify';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertController } from '@ionic/angular';
+import { Animation } from '@ionic/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
   credentials: User = {
     id: 0,
@@ -29,18 +30,28 @@ export class LoginPage {
 
   constructor(private alert: AlertController, private auth: AuthenticationService, private router: Router, private snackBar: MatSnackBar) { }
 
-  async alertLogin(){
+
+  ngOnInit() { }
+
+  /** Fonction qui affiche une fenêtre alerte */
+  private async alertLogin() {
     const alert = await this.alert.create({
-      header: 'Le nom d\'utilisateur ou le mot de passe est incorrect !',
-      buttons: ['OK']
+      header: 'L\'e-mail ou le mot de passe est incorrect !',
+      subHeader: 'Veuillez corriger les champs correspondants.',
+      buttons: ['OK'],
     });
 
     await alert.present();
   }
 
-  login(event){
-    if(event){
-      if(event.keyCode === 13){
+  /** Fonction qui login l'utilisateur
+   * l'event reçu en paramètre permet de gérer le clic sur "Enter" pour le form -> plus pratique
+   * redirige l'utilisateur sur la page d'accueil après s'être loggé correctement
+   * sinon affiche une fenêtre d'alerte pour erreur de login
+  */
+  private login(event) {
+    if (event) {
+      if (event.keyCode === 13) {
         this.loginReady = true;
       } else {
         this.loginReady = false;
@@ -48,20 +59,21 @@ export class LoginPage {
     } else {
       this.loginReady = true;
     }
-    if(this.loginReady){
+    if (this.loginReady) {
       this.auth.login(this.credentials).subscribe(() => {
         this.router.navigateByUrl('/home');
       },
-      err => {
-        if(err.status === 400){
-          this.alertLogin();
-        }
-        console.error(err);
-      });
+        err => {
+          if (err.status === 400) {
+            this.alertLogin();
+          }
+          console.error(err);
+        });
     }
   }
 
-  goToRegister(){
+  /** Fonction qui redirige l'utilisateur vers la page register */
+  private goToRegister() {
     this.router.navigateByUrl('/register');
   }
 }
