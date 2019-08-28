@@ -45,7 +45,6 @@ export class RestaurantCardPage implements OnInit {
   getRestaurantWines() {
     this.rs.getRestaurantDetail().subscribe(restaurant => {
       this.restaurant = restaurant;
-      console.log(this.restaurant);
       this.vs.getRestaurantWines(this.restaurant.res_id).subscribe(wines => {
         if (this.wines.length === 0) {
           this.isLoading = true;

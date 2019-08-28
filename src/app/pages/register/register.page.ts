@@ -103,7 +103,6 @@ export class RegisterPage implements OnInit {
       }, 1000);
     },
       err => {
-        console.log('L\'ERREUR = ' + JSON.stringify(err));
         if (err.status === 400) {
           this.alertEmail();
           return;

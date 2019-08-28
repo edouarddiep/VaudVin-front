@@ -76,7 +76,6 @@ export class AuthenticationService {
     /** Fonction qui indique si un utilisateur est connecté ou non */
     public isLoggedIn(): boolean {
         const user = this.getUserDetail();
-        console.log('LE USER = ' + JSON.stringify(user));
         if (user) {
             return user.exp > Date.now() / 1000;
         } else {
@@ -86,7 +85,6 @@ export class AuthenticationService {
 
     /** Fonction qui enregistre un nouvel utilisateur */
     public register(user: User): Observable<any> {
-        console.log(user);
         return this.http.post(URL.domaine + URL.auth.verb + URL.auth.register, user, {
             headers: { 'Content-Type': 'application/json' }
         });

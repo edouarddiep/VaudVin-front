@@ -19,7 +19,6 @@ export class VintageService {
 
   /** Fonction qui crée un millésime */
   public postVintage(vintage: Vintage): Observable<any> {
-    console.log(vintage);
     return this.http.post(URL.domaine + URL.vintage.verb, vintage, {
       headers: { 'Content-Type': 'application/json' }
     });

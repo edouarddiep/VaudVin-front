@@ -50,7 +50,6 @@ export class WineDetailPage implements OnInit {
     this.vintage = JSON.parse(localStorage.getItem('selectedVintage'));
     this.vs.getVinDetail().subscribe(vin => {
       this.vin = vin;
-      console.log("Ce vin = " + JSON.stringify(this.vin));
       if (this.vin.win_is_bio) {
         this.isBio = 'oui';
       } else {
@@ -193,14 +192,12 @@ export class WineDetailPage implements OnInit {
 
   /** Fonction qui met à jour le label du nombre de caractères (commentaire) */
   private textChange() {
-    console.log(this.commentValue);
     this.textCount = 100 - this.commentValue.length;
   }
 
   /** Fonction qui enregistre la note OU la met à jour si elle existe déjà dans la bdd */
   private saveRate() {
     this.submitted = true;
-    console.log('la note = ' + this.rateValue);
     if (this.rateValue === undefined) {
       this.alertRateNull();
       return;

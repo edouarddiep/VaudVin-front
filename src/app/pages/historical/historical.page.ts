@@ -36,7 +36,6 @@ export class HistoricalPage implements OnInit {
 
   ngOnInit() {
     this.user_id = this.auth.getUserId();
-    console.log("L'ID DU USER CONNECTÉ = " + this.user_id);
     this.isLoading = true;
     this.getUserWines();
     this.getFilterResults();

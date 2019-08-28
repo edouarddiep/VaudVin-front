@@ -67,7 +67,6 @@ export class LoginPage implements OnInit {
           if (err.status === 400) {
             this.alertLogin();
           }
-          console.error(err);
         });
     }
   }

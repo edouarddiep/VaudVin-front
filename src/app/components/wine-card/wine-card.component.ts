@@ -44,7 +44,6 @@ export class WineCardComponent implements OnInit {
   constructor(private vs: VinService, private rs: RatingService, private us: UserService, private router: Router, private auth: AuthenticationService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.vin.win_id);
     this.percent = Math.floor(Math.random() * 90) + 50; // valeur aléatoire en attendant le calcul
     this.user_id = this.auth.getUserId();
     this.getMoyenneMill();

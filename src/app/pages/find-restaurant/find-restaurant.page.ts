@@ -100,7 +100,6 @@ export class FindRestaurantPage implements OnInit {
 
   ngOnInit() {
     const infoWindow = document.getElementById('infoWindow');
-    console.log(infoWindow);
     this.isLoading = true;
     this.getRestaurants();
     setTimeout(() => {
@@ -121,12 +120,10 @@ export class FindRestaurantPage implements OnInit {
 
   /** FONCTION PERMETTANT DE PLACER LE MARQUEUR DE GEOLOCATION SUR L'API GOOGLE MAPS */
   private setCurrentPosition() {
-    console.log(navigator);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        console.log(lat, lng);
         if (position) {
           this.zoom = 14;
           this.lat = lat;
@@ -158,7 +155,6 @@ export class FindRestaurantPage implements OnInit {
     this.geocoder.geocode({
       'address': address
     }, (results, status) => {
-      console.log(results);
       if (status === google.maps.GeocoderStatus.OK) {
         for (let i = 0; i < results[0].address_components.length; i++) {
           const types = results[0].address_components[i].types;

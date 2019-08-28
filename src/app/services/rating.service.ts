@@ -26,7 +26,6 @@ export class RatingService {
 
   /** Fonction qui crée une nouvelle note dans la bdd */
   public postRate(rate: Rate): Observable<any> {
-    console.log(rate);
     return this.http.post(URL.domaine + URL.rate.verb, rate, {
       headers: { 'Content-Type': 'application/json' }
     });
@@ -34,7 +33,6 @@ export class RatingService {
 
     /** Fonction qui met à jour une note dans la bdd */
   public updateRate(rate: Rate): Observable<any> {
-    console.log(rate);
     return this.http.put(URL.domaine + URL.rate.verb + rate.rat_id, rate);
   }
 
@@ -44,7 +42,7 @@ export class RatingService {
   }
 
   /** Fonction qui récupère les notes en fonction du millésime */
-  public getRatesByVintag(vint_id: number): Observable<Array<Rate>> {
+  public getRatesByVintage(vint_id: number): Observable<Array<Rate>> {
     return this.http.get<Array<Rate>>(URL.domaine + URL.vintage.verb + vint_id + URL.rate.verb);
   }
 
