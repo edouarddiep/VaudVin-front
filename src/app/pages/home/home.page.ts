@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getAuthenticatedUser();
-    this.getRatesByUsers();
+    //  this.getRatesByUsers(); // --> commentée car la fonction ne retourne pas les données nécessaires (cf : Calcul de coefficient de correspondance)
     this.getRatesOfAuthenticatedUser();
   }
 
@@ -62,14 +62,16 @@ export class HomePage implements OnInit {
 
 
 
-  /** FONCTION QUI RÉCUPÈRE ET STOCKE LES NOTES DE L'UTILISATEUR CONNECTÉ */
+  /** FONCTION QUI RÉCUPÈRE ET STOCKE LOCALEMENT LES NOTES DE L'UTILISATEUR CONNECTÉ */
   private getRatesOfAuthenticatedUser() {
     this.rs.getUserRates(this.user_id).subscribe(rates => {
       localStorage.setItem('authenticatedUserRates', JSON.stringify(rates));
     });
   }
 
-  /** FONCTION QUI RÉCUPÈRE LES NOTES DES UTILISATEURS EXCLUANT CELUI CONNECTÉ */
+  /** 
+   * FONCTION QUI DEVAIT CALCULER LE COEFFICIENT DE CORRESPONDANCE ... (Fonctionne en partie mais ne récupère pas toutes les données nécessaires)
+   * RÉCUPÈRE LES NOTES DES UTILISATEURS EXCLUANT CELUI CONNECTÉ */
   // tslint:disable: max-line-length
   private getRatesByUsers() {
     const authenticatedUserRates = JSON.parse(localStorage.getItem('authenticatedUserRates'));
@@ -83,7 +85,6 @@ export class HomePage implements OnInit {
           authenticatedUserRates.forEach(currentUserRate => {
             rates.forEach(otherRate => {
               if (currentUserRate.fk_rat_vin_id === otherRate.fk_rat_vin_id) { // je compare les millésimes communs (entre l'utilisateur connecté et les autres)
-                console.log('===============Comparaison avec les notes des autres users===============');
                 this.correspondanceVin = currentUserRate.rat_value - otherRate.rat_value; // on calcule la différence des notes pour connaître le nombre de notes "similaire" (soit + ou - 1 d'écart)
                 this.nbVinsCommuns++; // incrémente le nombre de millésimes notés en communs entre l'utilisateur connecté et les autres
                 this.currentCorresp.push(currentUserRate);
@@ -94,16 +95,7 @@ export class HomePage implements OnInit {
                 this.coef = this.nbNotesSim / this.nbVinsCommuns; // Nb de vin évalué avec + ou - 1 point d'écart / Nb de vin évalué en commun
                 this.ratio += this.coef;
                 this.noteUtilisateurPondere = this.coef * otherRate.rat_value;
-                console.log(currentUserRate);
-                console.log(otherRate);
-                console.log('la correspondance = ' + this.correspondanceVin);
-                console.log('notes similaires = ' + this.nbNotesSim);
-                console.log('notes vins communs = ' + this.nbVinsCommuns);
-                console.log('Le coef = ' + this.coef);
-                console.log('Le ratio = ' + this.ratio);
-                this.lstRatios.push(this.ratio); // on remplit la liste des ratios
-                console.log('La note = ' + otherRate.rat_value.toString());
-                console.log('Note utilisateur pondérée = ' + this.noteUtilisateurPondere);
+                this.lstRatios.push(this.ratio); // on remplit la liste des ratios         
                 this.lstNotesPonderees.push(this.noteUtilisateurPondere); // on remplit la liste des notes pondérées
               } else {
                 this.correspondanceVin = 0; // afin d'éviter de diviser par 0, s'il n'y a pas de vin en commun alors renvoyer 0 dans la table
@@ -115,18 +107,14 @@ export class HomePage implements OnInit {
       });
     });
     setTimeout(() => {
-      console.log(this.lstRatios);
-      console.log(this.lstNotesPonderees);
-      console.log('le nb de notes communes = ' + this.nbVinsCommuns);
-      console.log('le nb de notes similaires = ' + this.nbNotesSim);
       localStorage.setItem('lstRatios', JSON.stringify(this.lstRatios));
       localStorage.setItem('lstNotesPonderees', JSON.stringify(this.lstNotesPonderees));
       localStorage.setItem('nbVinsCommuns', this.nbVinsCommuns.toString());
       localStorage.setItem('nbNotesSimilaires', this.nbNotesSim.toString());
     }, 1000);
-    /** STADE ACTUEL DES CHOSES :
-     *  - J'AI LES MOYENNES DES MILLÉSIMES POUR NOTES ET CONCOURS (méthodes à mettre en place dans le service pour récupérer du back)
-     *  - J'AI LE NOMBRE DE NOTES COMMUNES (les mêmes vins notés) ET LE NOMBRE DE NOTES SIMILAIRES (+ ou - 1 d'écart)
+    /** STADE ACTUEL DES DONNÉES POUR LE CALCUL DU COEFFICIENT DE CORRESPONDANCE :
+     *  - J'AI LES MOYENNES DES MILLÉSIMES POUR NOTES ET CONCOURS (directement récupérables de la base de données grâce aux routes du Back end)
+     *  - J'AI LE NOMBRE DE NOTES COMMUNES (les mêmes vins notés entre deux users) ET LE NOMBRE DE NOTES SIMILAIRES (+ ou - 1 d'écart entre deux notes)
      *  - J'AI LE RATIO TOTAL
      *  - J'AI TROIS TABLEAUX : CELUI POUR LES NOTES DU USER CONNECTÉ (COMMUNES A CELLES DES AUTRES), CELUI POUR LES NOTES DES AUTRES USERS (COMMUNES A CELLE DU USER CONNECTÉ) ET CELUI POUR TOUTES LES AUTRES NOTES NON COMMUNES
      */
