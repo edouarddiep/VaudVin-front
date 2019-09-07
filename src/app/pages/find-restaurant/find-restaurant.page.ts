@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Restaurant } from 'src/app/models/Restaurant.model';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { Platform, LoadingController } from '@ionic/angular';
-import { AgmMap, GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+import { AgmMap, MapsAPILoader } from '@agm/core';
 
 declare var google: any;
 

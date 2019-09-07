@@ -8,7 +8,6 @@ import { Component, OnInit, NgModule, CUSTOM_ELEMENTS_SCHEMA, ViewChild, Rendere
 import { VinService } from 'src/app/services/vin.service';
 import { Router } from '@angular/router';
 import { Vin } from 'src/app/models/Vin.model';
-import { Rate } from 'src/app/models/Rate.model';
 import { UserService } from 'src/app/services/user.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { RatingService } from 'src/app/services/rating.service';

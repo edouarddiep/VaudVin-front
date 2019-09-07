@@ -10,10 +10,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { URL } from 'src/environments/environment';
 import { Rate } from '../models/Rate.model';
 import { Vin } from '../models/Vin.model';
-import { VinService } from './vin.service';
-import { UserService } from './user.service';
-import { Router } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'

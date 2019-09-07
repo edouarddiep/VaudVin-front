@@ -10,7 +10,6 @@ import { Vin } from 'src/app/models/Vin.model';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Restaurant } from 'src/app/models/Restaurant.model';
-import { of } from 'rxjs';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { RatingService } from 'src/app/services/rating.service';
 

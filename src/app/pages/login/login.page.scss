@@ -3,6 +3,14 @@
         padding-top:10px;
         text-align: center;
         height:auto;
+        .loading-spinner {
+            padding-top: 10%;
+            transform: scale(2);
+            text-align: center;
+            display: table;
+            margin: auto;
+            position: relative;
+        }
         .img-toolbar{
             text-align: center;
             margin:auto;

@@ -8,10 +8,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/User.model';
-import { ToastComponent } from 'ng-snotify';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertController } from '@ionic/angular';
-import { Animation } from '@ionic/core';
 
 @Component({
   selector: 'app-login',

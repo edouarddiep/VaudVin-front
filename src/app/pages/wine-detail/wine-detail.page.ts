@@ -9,9 +9,7 @@ import { Vin } from 'src/app/models/Vin.model';
 import { VinService } from 'src/app/services/vin.service';
 import { Router } from '@angular/router';
 import { Vintage } from 'src/app/models/Vintage.model';
-import { User } from 'src/app/models/User.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/services/user.service';
 import { RatingService } from 'src/app/services/rating.service';
 import { Rate } from 'src/app/models/Rate.model';
 import { AlertController } from '@ionic/angular';
@@ -48,26 +46,14 @@ export class WineDetailPage implements OnInit {
     });
     this.user_id = this.auth.getUserId();
     this.vintage = JSON.parse(localStorage.getItem('selectedVintage'));
-    this.vs.getVinDetail().subscribe(vin => {
-      this.vin = vin;
-      if (this.vin.win_is_bio) {
-        this.isBio = 'oui';
-      } else {
-        this.isBio = 'non';
-      }
-      if (this.vin.win_is_woody_character) {
-        this.isWoody = 'oui';
-      } else {
-        this.isWoody = 'non';
-      }
-    });
+    this.setBioAndWoodyStates();
     this.setExistingRateAndComment();
   }
 
- /** Fonction qui set la note et le commentaire dans le cas où ils existent
-  * Sinon, mets la variable isRated à false et ne fait rien
-  */
-  private setExistingRateAndComment(){
+  /** Fonction qui set la note et le commentaire dans le cas où ils existent
+   * Sinon, mets la variable isRated à false et ne fait rien
+   */
+  private setExistingRateAndComment() {
     this.rs.getUserRatesByVintage(this.user_id, this.vintage.vin_id).subscribe(rates => {
       this.rates = rates;
       this.existingRates = rates.length;
@@ -83,6 +69,23 @@ export class WineDetailPage implements OnInit {
         }
       } else {
         this.isRated = false;
+      }
+    });
+  }
+
+  /** Fonction qui set les labels isBio et isWoody selon les données récupérées du Back end*/
+  private setBioAndWoodyStates() {
+    this.vs.getVinDetail().subscribe(vin => {
+      this.vin = vin;
+      if (this.vin.win_is_bio) {
+        this.isBio = 'oui';
+      } else {
+        this.isBio = 'non';
+      }
+      if (this.vin.win_is_woody_character) {
+        this.isWoody = 'oui';
+      } else {
+        this.isWoody = 'non';
       }
     });
   }
@@ -126,8 +129,8 @@ export class WineDetailPage implements OnInit {
     }
   }
 
-    /** Fonction qui envoie une alerte d'erreur */
-  private async alertRateNull(){
+  /** Fonction qui envoie une alerte d'erreur */
+  private async alertRateNull() {
     const alert = await this.alert.create({
       header: 'Veuillez saisir une note !',
       buttons: ['OK']
@@ -136,17 +139,17 @@ export class WineDetailPage implements OnInit {
     await alert.present();
   }
 
-    /** Fonction qui envoie une alerte de confirmation */
-  private async alertRateUpdatedOk(){
+  /** Fonction qui envoie une alerte de confirmation */
+  private async alertRateUpdatedOk() {
     const alert = await this.alert.create({
       header: 'L\'avis a bien été mise à jour !',
       buttons: [{
         text: 'Retour à mon historique',
         handler: () => {
           this.router.navigate(['/historical'])
-          .then(() => {
-            window.location.reload();
-          });
+            .then(() => {
+              window.location.reload();
+            });
         }
       }]
     });
@@ -155,7 +158,7 @@ export class WineDetailPage implements OnInit {
   }
 
   /** Fonction qui envoie une alerte de confirmation */
-  private async alertRateSavedOk(){
+  private async alertRateSavedOk() {
     const alert = await this.alert.create({
       header: 'Merci d\'avoir évalué ce millésime !',
       buttons: [{
@@ -163,20 +166,20 @@ export class WineDetailPage implements OnInit {
         cssClass: 'alert-saved',
         handler: () => {
           this.router.navigate(['/list-wine'])
-          .then(() => {
-            window.location.reload();
-          });
+            .then(() => {
+              window.location.reload();
+            });
         }
       }, {
         text: 'Voir mon historique',
         handler: () => {
           this.router.navigate(['/historical'])
-          .then(() => {
-            window.location.reload();
-          });
+            .then(() => {
+              window.location.reload();
+            });
         }
       }
-    ]
+      ]
     });
 
     await alert.present();
@@ -202,7 +205,7 @@ export class WineDetailPage implements OnInit {
       this.alertRateNull();
       return;
     }
-    if(this.commentValue === undefined){
+    if (this.commentValue === undefined) {
       this.isCommented = false;
     } else {
       this.isCommented = true;

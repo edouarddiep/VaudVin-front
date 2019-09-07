@@ -111,6 +111,7 @@ export class RegisterPage implements OnInit {
     );
   }
 
+  /** Fonction qui redirige l'utilisateur vers la page login */
   private goToLogin() {
     this.router.navigateByUrl('/login');
   }
