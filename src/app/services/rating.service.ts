@@ -77,6 +77,11 @@ export class RatingService {
     return this.http.get<number>(URL.domaine + URL.wine.verb + id + URL.concoursRate.verb + 'avg');
   }
 
+  /** Fonction qui récupère la moyenne des notes des concours d'un vin pour l'utilisateur */
+  public getWineConcoursRatesNumber(id: number): Observable<number> {
+    return this.http.get<number>(URL.domaine + URL.wine.verb + id + URL.concoursRate.verb + 'nb');
+  }
+
     /** Fonction qui permet d'envoyer la prochaine instance de tableau de notes dans le BehaviorSubject */
   public pushNextArrayRates(rates: Array<Rate>) {
     this.rates$.next(rates);

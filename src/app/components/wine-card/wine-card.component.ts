@@ -26,20 +26,9 @@ export class WineCardComponent implements OnInit {
   isRated = false;
   user_id: number;
   moyenneMill: number; // note affichée pour le vin (calculée sur la moyenne des millésimes grâce à la fonction getAverageRate())
-  moyenneConcoursMill: number; // note moyenne des concours pour le millésime
+  moyennePtsConcoursMill: number; // moyenne des points des concours pour le millésime
+  nbNotes: number; // nombre de notes constituant la moyenne affichée
   percent: number;
-
-
-  /** VARIABLES DE CALCUL COEFF CORRESPONDANCE */
-  allUsersRates: Array<Rate>;
-  rates: Array<Rate>;
-  setRates = new Set<Rate>();
-  correspondanceVin = 0; // Si une des deux personnes n'a pas noté le vin, j'ai attribué une valeur -100 à la correspondance
-  nbNotesSim = localStorage.getItem('nbNotesSimilaires'); // Notes sur vins communs dont le rapport est de + ou - 1 d'écart
-  nbNotes = localStorage.getItem('nbVinsCommuns');  // Nombre de notes utilisées dans la mise en correspondance avec les autres utilisateurs
-  noteUtilisateurPondere = 0; // Note d'un utilisateur proche * coef de correspondance (3 dans notre cas)
-  coefMoyenneMill = 0;
-
 
   constructor(private vs: VinService, private rs: RatingService, private us: UserService, private router: Router, private auth: AuthenticationService, private route: ActivatedRoute) { }
 
@@ -47,8 +36,9 @@ export class WineCardComponent implements OnInit {
     this.percent = Math.floor(Math.random() * 90) + 50; // valeur aléatoire en attendant le calcul
     this.user_id = this.auth.getUserId();
     this.getMoyenneMill();
+    this.getMoyenneConcoursMill();
+    this.getNombreNotesConcoursMill();
     this.getRatesByAuthenticatedUser();
-    this.getRecommendedRate();
 
   }
 
@@ -77,14 +67,20 @@ export class WineCardComponent implements OnInit {
   private getMoyenneMill(){
     this.rs.getWineRatesAverage(this.user_id, this.vin.win_id).subscribe(avg => {
       this.moyenneMill = Math.round(avg * 2) / 2;  // arrondie à 0.5
-      localStorage.setItem('moyenneMill', this.moyenneMill.toString());
     });
   }
-  /** FONCTION QUI RÉCUPÈRE ET STOCKE LA MOYENNE DES CONCOURS BASÉE CE SUR LES MILLÉSIMES (arrondie à 0.5) */
+  /** FONCTION QUI RÉCUPÈRE ET STOCKE LA MOYENNE DES CONCOURS BASÉE CE SUR LES MILLÉSIMES */
   private getMoyenneConcoursMill(){
-    this.rs.getWineConcoursRatesAverage(this.user_id).subscribe(avg => {
-      this.moyenneConcoursMill = Math.round(avg * 2) / 2;  // arrondie à 0.5
-      localStorage.setItem('moyenneConcoursMill', this.moyenneConcoursMill.toString());
+    this.rs.getWineConcoursRatesAverage(this.vin.win_id).subscribe(avg => {
+      this.moyennePtsConcoursMill = avg;
+      console.log(this.moyennePtsConcoursMill);
+    });
+  }
+  /** FONCTION QUI RÉCUPÈRE ET STOCKE LE NOMBRE DE NOTES DES CONCOURS BASÉE CE SUR LES MILLÉSIMES */
+  private getNombreNotesConcoursMill(){
+    this.rs.getWineConcoursRatesNumber(this.vin.win_id).subscribe(nbNotes => {
+      this.nbNotes = nbNotes;
+      console.log(this.nbNotes);
     });
   }
 
@@ -92,11 +88,6 @@ export class WineCardComponent implements OnInit {
   private goToVintages() {
     this.vs.pushNextVin(this.vin);
     this.router.navigateByUrl('wines/' + this.vin.win_id + '/choose-vintage');
-  }
-
-  // problème au niveau du nombre de vins communs et du nombre de notes similaires...
-  getRecommendedRate(){
-
   }
 
 }

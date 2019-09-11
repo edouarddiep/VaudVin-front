@@ -5,27 +5,21 @@
     <ion-label>{{vin.win_producer}}</ion-label>
     <ion-label>{{vin.win_grape_variety}}</ion-label>
     <ion-label>Vin {{vin.win_category}}</ion-label>
-    <div *ngIf="(router.url === '/list-wine' || router.url.includes('/restaurant-card/')) && !isRated" class="label-recommended">
-      <ion-label *ngIf="percent < 40" id="labelRecommended" style="color:red;">
-        Recommandé à {{percent}}% <ion-icon name="thumbs-down"></ion-icon>
+    <div *ngIf="!isRated" class="label-recommended">
+      <ion-label *ngIf="moyennePtsConcoursMill < 75" id="labelRecommended" >
+        Note moyenne : <label style=color:red;>2 </label> <span style="font-size: 0.7em; color:red;">({{nbNotes}} {{nbNotes==1? 'note' : 'notes'}})<ion-icon name="thumbs-down"></ion-icon></span>
       </ion-label>
-      <ion-label *ngIf="percent >= 40 && percent < 80" id="labelRecommended" style="color:orange;">
-        Recommandé à {{percent}}% <ion-icon name="thumbs-up">
-        </ion-icon>
+      <ion-label *ngIf="moyennePtsConcoursMill >= 75 && moyennePtsConcoursMill < 86" id="labelRecommended" >
+        Note moyenne : <label style=color:darkorange;>3 </label> <span style="font-size: 0.7em; color:darkorange;">({{nbNotes}} {{nbNotes==1? 'note' : 'notes'}})<ion-icon name="thumbs-up"></ion-icon></span>
       </ion-label>
-      <ion-label *ngIf="percent >= 80 && percent <= 100" id="labelRecommended" style="color:green;">
-        Recommandé à {{percent}}% <ion-icon name="thumbs-up">
-        </ion-icon>
+      <ion-label *ngIf="moyennePtsConcoursMill >= 86 && moyennePtsConcoursMill < 90" id="labelRecommended" >
+        Note moyenne : <label style=color:green;>4 </label> <span style="font-size: 0.7em; color:green;">({{nbNotes}} {{nbNotes==1? 'note' : 'notes'}})<ion-icon name="thumbs-up"></ion-icon></span>
+      </ion-label>
+      <ion-label *ngIf="moyennePtsConcoursMill >= 90 && moyennePtsConcoursMill <= 100" id="labelRecommended" >
+        Note moyenne : <label style=color:green;>5 </label> <span style="font-size: 0.7em; color:green;">({{nbNotes}} {{nbNotes==1? 'note' : 'notes'}})<ion-icon name="thumbs-up"></ion-icon></span>
       </ion-label>
     </div>
-    <div *ngIf="(router.url === '/list-wine' || router.url.includes('/restaurant-card/')) && isRated" class="label-recommended">
-      <ion-label class="rate-label">Vous avez noté ce vin : 
-        <span class="moyenne-mill">
-          <strong>{{moyenneMill}} / 5 </strong>
-        </span></ion-label>
-        
-    </div>
-    <div id="like" class="rating" *ngIf="router.url === '/historical' && isRated">
+    <div id="like" class="rating" *ngIf="isRated">
       <!-- 0 HEART - NO RATE -->
       <ng-container *ngIf="moyenneMill === 0" title="note-nulle">
         <ion-icon name="heart-empty" class="heart"></ion-icon>

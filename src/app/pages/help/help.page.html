@@ -4,10 +4,13 @@
 
 <ion-content>
   <ion-item>
-    <h3 text-center>Pour naviguer sur l'application, accédez au menu en cliquant sur le bouton :
+    <h5 text-center>Pour naviguer sur l'application, accédez au menu latéral en touchant le bouton :
       <img class="img-help square" src="../../../assets/images/side_menu_btn.png">
-    </h3>
+    </h5>
     <br />
+    <h5 text-center>Pour vous déconnecter de l'app, touchez le bouton :
+        <img class="img-help smallrect" src="../../../assets/images/logout.png">
+    </h5>
   </ion-item>
   <ion-card>
     <ion-card-header id="1" (click)="toggleAccordion($event)" class="card-header">
@@ -27,15 +30,21 @@
       <ion-item class="item-help" lines="none">
         <div class="txt-help">
           <div>
-            Dans le cas où vous n'avez <b>pas encore noté le vin</b>, alors il est affiché avec un pourcentage de
-            recommendation<b>*</b> :
+            Dans le cas où vous n'avez <b>pas encore noté le vin</b>, alors il est affiché avec une note qui correspond
+            à la moyenne des notes des concours pour ce vin suivi, entre parenthèses, du nombre de notes constituant la
+            moyenne :
           </div>
           <img class="img-help rect" src="../../../assets/images/wine_unrated.png">
-          <br /><span style="font-size: 0.8em">*Ce pourcentage est le résultat d'un calcul de coefficient de
-            correspondance
-            entre plusieurs vins et plusieurs personnes. Il est calculé sur une base très spécifique dont le détail ne
-            peut
-            être étalé ici.</span>
+          <br />
+          <div style="font-size: 0.8em">
+            Si la note est bonne ou excellente (4 ou 5), elle est affichée en <b style="color:green">vert</b>.<br />
+            Si la note est moyenne (3), elle est affichée en <b style="color:darkorange">orange</b>.<br />
+            Si la note est médiocre (2), elle est affichée en <b style="color:red">rouge</b>.
+          </div>
+          <br />
+          <div>
+            Pour noter un vin, il suffit de toucher la petite fiche (voir images ci-dessus).
+          </div>
         </div>
       </ion-item>
     </ion-card-content>
@@ -57,7 +66,7 @@
           <img class="img-help" src="../../../assets/images/vintage_select.png">
           <br />
           <div>
-            Une fois le millésime sélectionné, cliquez sur "Valider" pour passer à l'écran suivant.
+            Une fois le millésime sélectionné, touchez "Valider" pour passer à l'écran suivant.
           </div>
         </div>
       </ion-item>
@@ -80,7 +89,7 @@
           <img class="img-help" src="../../../assets/images/wine_detail_filled.png">
           <br />
           <div>
-            Un clic sur le bouton "Annuler" vous ramène à l'écran de sélection des vins tandis ce que "Enregistrer
+            Un touché sur le bouton "Annuler" vous ramène à l'écran de sélection des vins tandis ce que "Enregistrer
             l'avis"
             sauvegarde votre note et votre commentaire dans la base de données et affiche une fenêtre de confirmation
             avec
@@ -104,7 +113,6 @@
     <ion-card-content id="content4" class="help-card">
       <ion-item class="item-help" lines="none">
         <div class="txt-help">
-
           <img class="img-help" src="../../../assets/images/historical_page.png">
           <div>
             Sur cette page vous retrouvez une liste des vins que vous avez évalués auparavant, filtrés par catégorie
@@ -114,7 +122,7 @@
 
           <img class="img-help mobile-large" src="../../../assets/images/historical_page_accordion_opened.png">
           <div>
-            Dès que vous cliquez sur un en-tête (vins blancs par exemple), celui-ci s'ouvre et laisse place aux notes
+            Dès que vous touchez un en-tête (vins blancs par exemple), celui-ci s'ouvre et laisse place aux notes
             des
             vins
             sous forme de ♥ (coeurs).
@@ -123,6 +131,11 @@
             redirigé
             vers
             la page de sélection du millésime.
+          </div>
+          <br />
+          <div>
+            Dans le cas où l'utilisateur n'a encore jamais évalué de vin, alors le message suivant vient s'afficher :
+            <img class="img-help" src="../../../assets/images/historical_no_rates.png">
           </div>
         </div>
       </ion-item>
@@ -151,10 +164,10 @@
           </div>
           <img class="img-help mobile-xlarge" src="../../../assets/images/find-restaurant_infowindow.png">
           <div>
-            Un clic sur un marqueur <b style="color:crimson">rouge</b> affiche une bulle info avec les données du
+            Un touché sur un marqueur <b style="color:crimson">rouge</b> affiche une bulle info avec les données du
             restaurant
             sélectionné.
-            Cliquez sur "Afficher la carte des vins" afin d'accéder à la carte du restaurant souhaité :
+            Touchez "Afficher la carte des vins" afin d'accéder à la carte du restaurant souhaité :
           </div>
           <img class="img-help mobile-xlarge" src="../../../assets/images/wine_card_page.png">
           <div>

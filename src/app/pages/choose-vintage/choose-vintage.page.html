@@ -1,6 +1,6 @@
 <ion-content>
   <ion-item class="list-vintage" lines="none">
-    <ion-label>Sélectionnez un millésime</ion-label>
+    <ion-label class="title">Sélectionnez un millésime</ion-label>
     <ion-select [(ngModel)]="selectedYear" (ngModelChange)="goToDetail($event)" cancelText="Annuler" okText="Valider">
       <ion-select-option  *ngFor="let year of listYear">{{year}}</ion-select-option>
     </ion-select>

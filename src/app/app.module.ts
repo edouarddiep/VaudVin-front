@@ -26,7 +26,7 @@ import { ComponentsModule } from './components/components.module';
 import { HomePage } from './pages/home/home.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
-import { AgmCoreModule, LazyMapsAPILoader } from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { AuthenticationService } from './services/authentication.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CommonModule } from '@angular/common';
